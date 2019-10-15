@@ -8,8 +8,8 @@ export default function ProjectsTable() {
       { title: 'Description', field: 'description' },
     ],
     data: [
-      { name: 'Bike Shop', surname: 'Project for Bike Shop' },
-      { name: 'Bike Shop 2', surname: 'Project for Bike Shop 2' },
+      { name: 'Bike Shop', description: 'Project for Bike Shop' },
+      { name: 'Bike Shop 2', description: 'Project for Bike Shop 2' },
     ],
   });
 
