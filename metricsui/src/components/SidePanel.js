@@ -42,8 +42,7 @@ export default function SidePanel() {
             }}
         >
             <div className={classes.toolbar} />
-            <List>
-                
+            <List>    
                 {pages.map((text, index) => (
                     <ListItem button key={text}>
                         <ListItemIcon>{icons[index]}</ListItemIcon>
