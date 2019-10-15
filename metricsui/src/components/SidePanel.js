@@ -4,8 +4,16 @@ import {
     List,
     ListItem,
     ListItemText,
+    ListItemIcon,
     Drawer,
  } from '@material-ui/core'
+
+ import {
+     DeveloperBoard,
+     Assignment,
+     Code,
+
+ } from '@material-ui/icons'
 
 const drawerWidth = 240
 const useStyles = makeStyles(theme => ({
@@ -21,6 +29,9 @@ const useStyles = makeStyles(theme => ({
 
 export default function SidePanel() {
     const classes = useStyles()
+    
+    const pages = ['Dashboard', 'Projects', 'API']
+    const icons = [<DeveloperBoard />, <Assignment />, <Code />]
 
     return (
         <Drawer
@@ -32,8 +43,10 @@ export default function SidePanel() {
         >
             <div className={classes.toolbar} />
             <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                
+                {pages.map((text, index) => (
                     <ListItem button key={text}>
+                        <ListItemIcon>{icons[index]}</ListItemIcon>
                         <ListItemText primary={text} />
                     </ListItem>
 
