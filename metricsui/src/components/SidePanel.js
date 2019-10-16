@@ -1,4 +1,9 @@
 import React from 'react'
+import { 
+    Link as RouterLink
+ } from 'react-router-dom'
+
+import PropTypes from 'prop-types'
 import {
     makeStyles,
     List,
@@ -27,11 +32,41 @@ const useStyles = makeStyles(theme => ({
     toolbar: theme.mixins.toolbar,
 }))
 
+function ListItemLink(props) {
+    const { icon, primary, to } = props;
+  
+    const renderLink = React.useMemo(
+      () =>
+        React.forwardRef((itemProps, ref) => (
+          // With react-router-dom@^6.0.0 use `ref` instead of `innerRef`
+          // See https://github.com/ReactTraining/react-router/issues/6056
+          <RouterLink to={to} {...itemProps} innerRef={ref} />
+        )),
+      [to],
+    );
+  
+    return (
+      <li>
+        <ListItem button component={renderLink}>
+          {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
+          <ListItemText primary={primary} />
+        </ListItem>
+      </li>
+    );
+}
+
+ListItemLink.propTypes = {
+    icon: PropTypes.element,
+    primary: PropTypes.string.isRequired,
+    to: PropTypes.string.isRequired,
+};
+
 export default function SidePanel() {
     const classes = useStyles()
     
     const pages = ['Dashboard', 'Projects', 'API']
     const icons = [<DeveloperBoard />, <Assignment />, <Code />]
+    
 
     return (
         <Drawer
@@ -44,11 +79,7 @@ export default function SidePanel() {
             <div className={classes.toolbar} />
             <List>    
                 {pages.map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{icons[index]}</ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-
+                    <ListItemLink to={'/'+text.toLowerCase()} primary={text} icon={icons[index]}/>
                 ))}
             </List>
         </Drawer>
