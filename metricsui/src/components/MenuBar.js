@@ -15,7 +15,6 @@ import {
  } from '@material-ui/core'
 
  import {
-    Timeline,
     Equalizer,
 } from '@material-ui/icons'
 
