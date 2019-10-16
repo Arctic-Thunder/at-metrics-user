@@ -1,5 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
@@ -8,6 +9,7 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
   root: {
@@ -49,32 +51,60 @@ const DialogActions = withStyles(theme => ({
   },
 }))(MuiDialogActions);
 
+const useStyles = makeStyles(theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
+  dense: {
+    marginTop: theme.spacing(2),
+  },
+  menu: {
+    width: 200,
+  },
+  button: {
+    margin: theme.spacing(1),
+  },
+  input: {
+    display: 'none',
+  },
+}));
+
 export default function LoginDialog(props) {
   const { onClose, open } = props
+  const classes = useStyles();
   return (
     <div>
       <Dialog onClose={onClose} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitle id="customized-dialog-title" onClose={onClose}>
-          Modal title
+          Login
         </DialogTitle>
         <DialogContent dividers>
-          <Typography gutterBottom>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
-            in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          </Typography>
-          <Typography gutterBottom>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
-            lacus vel augue laoreet rutrum faucibus dolor auctor.
-          </Typography>
-          <Typography gutterBottom>
-            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-            scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-            auctor fringilla.
-          </Typography>
+        <TextField
+          id="outlined-username-input"
+          label="Username"
+          className={classes.textField}
+          name="email"
+          margin="normal"
+          variant="outlined"
+        />
+        <TextField
+          id="outlined-password-input"
+          label="Password"
+          className={classes.textField}
+          type="password"
+          autoComplete="current-password"
+          margin="normal"
+          variant="outlined"
+        />
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose} color="primary">
-            Save changes
+          <Button variant="contained" color="primary" className={classes.button}>
+            Log In
           </Button>
         </DialogActions>
       </Dialog>

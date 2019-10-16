@@ -8,6 +8,7 @@ import {
 import ApiPage from '../pages/ApiPage'
 import DashboardPage from '../pages/DashboardPage'
 import ProjectsPage from '../pages/ProjectsPage'
+import WelcomePage from '../pages/WelcomePage'
 
 import {
     CssBaseline,
@@ -74,7 +75,7 @@ export default function MenuBar() {
                     <div className={classes.toolbar} />
                         <Switch>
                             <Route exact path ="/">
-                                <Typography h1>HOME PAGE</Typography>
+                                <WelcomePage />
                             </Route>
                             <Route path ="/dashboard">
                                 <DashboardPage />
