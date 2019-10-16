@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import Icon from '@material-ui/core/Icon';
 import {
     BrowserRouter as Router,
     Route,
@@ -18,6 +19,11 @@ import {
     Typography,
     Button,
  } from '@material-ui/core'
+
+ import {
+    Timeline,
+    Equalizer,
+} from '@material-ui/icons'
 
 import SidePanel from './SidePanel'
 import LoginDialog from './LoginDialog'
@@ -61,10 +67,10 @@ export default function MenuBar() {
                 <AppBar position="fixed" className={classes.appBar}>
                     <Toolbar>
                         <Typography variant="h6" className={classes.menuButton}>
-                            Arctic Thunder
+                            <Equalizer />
                         </Typography>
                         <Typography align="left" variant="h6" className={classes.title}>
-                            TODO: WHAT AM I
+                            Arctic Thunder Metrics
                         </Typography>
                         <Button variant="outlined" color="inherit" onClick={handleClickLogin}>Login</Button>
                         <LoginDialog onClose={handleClose} open={open} />
