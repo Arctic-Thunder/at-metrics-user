@@ -79,20 +79,23 @@ export default function MenuBar() {
                 <SidePanel />
                 <main className={classes.content}>
                     <div className={classes.toolbar} />
-                        <Switch>
-                            <Route exact path ="/">
-                                <WelcomePage />
-                            </Route>
-                            <Route path ="/dashboard">
-                                <DashboardPage />
-                            </Route>
-                            <Route path="/projects">
-                                <ProjectsPage />
-                            </Route>
-                            <Route path="/api">
-                                <ApiPage />
-                            </Route>
-                        </Switch>
+                    <Switch>
+                        <Route exact path ="/">
+                            <WelcomePage />
+                        </Route>
+                        <Route path ="/dashboard">
+                            <DashboardPage />
+                        </Route>
+                        <Route path="/projects">
+                            <ProjectsPage />
+                        </Route>
+                        <Route path="/api">
+                            <ApiPage />
+                        </Route>
+                        <Route path="/about">
+                            <WelcomePage />
+                        </Route>
+                    </Switch>
                 </main>
             </Router>
         </div>

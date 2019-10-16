@@ -14,10 +14,10 @@ import {
  } from '@material-ui/core'
 
  import {
-     DeveloperBoard,
-     Assignment,
-     Code,
-    
+    DeveloperBoard,
+    Assignment,
+    Code,
+    Info,
  } from '@material-ui/icons'
 
 const drawerWidth = 240
@@ -64,8 +64,8 @@ ListItemLink.propTypes = {
 export default function SidePanel() {
     const classes = useStyles()
     
-    const pages = ['Dashboard', 'Projects', 'API']
-    const icons = [<DeveloperBoard />, <Assignment />, <Code />]
+    const pages = ['Dashboard', 'Projects', 'API', 'About']
+    const icons = [<DeveloperBoard />, <Assignment />, <Code />, <Info />]
     
 
     return (
