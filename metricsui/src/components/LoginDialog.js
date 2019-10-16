@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -10,6 +10,8 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+
+// import fetch from 'isomorphic-fetch'
 
 const styles = theme => ({
   root: {
@@ -74,40 +76,68 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function LoginDialog(props) {
-  const { onClose, open } = props
-  const classes = useStyles();
-  return (
-    <div>
-      <Dialog onClose={onClose} aria-labelledby="customized-dialog-title" open={open}>
-        <DialogTitle id="customized-dialog-title" onClose={onClose}>
-          Login
-        </DialogTitle>
-        <DialogContent dividers>
-        <TextField
-          id="outlined-username-input"
-          label="Username"
-          className={classes.textField}
-          name="email"
-          margin="normal"
-          variant="outlined"
-        />
-        <TextField
-          id="outlined-password-input"
-          label="Password"
-          className={classes.textField}
-          type="password"
-          autoComplete="current-password"
-          margin="normal"
-          variant="outlined"
-        />
-        </DialogContent>
-        <DialogActions>
-          <Button variant="contained" color="primary" className={classes.button}>
-            Log In
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
-  );
+class LoginDialog extends Component {
+  state = {
+    user: []
+  }
+
+  componentDidMount() {
+    fetch('https://arcticthunder.azurewebsites.net/api/login/', {
+      mode: 'no-cors',
+      method: 'POST',
+      body: JSON.stringify({
+        username: 'thally',
+        password: 'Audio1919'
+      }),
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8"
+      }
+    })
+    .then(res => console.log(res))
+    // .then(res => res.json())
+    // .then(data => {
+    //   this.setState({ user: data })
+    //   console.log(data)
+    // })
+    // .catch(console.log)
+  }
+
+  render() {
+    const {onClose, open} = this.props
+    return (
+      <div>
+        <Dialog onClose={onClose} aria-labelledby="customized-dialog-title" open={open}>
+          <DialogTitle id="customized-dialog-title" onClose={onClose}>
+            Login
+          </DialogTitle>
+          <DialogContent dividers>
+          <TextField
+            id="outlined-username-input"
+            label="Username"
+            className={useStyles.textField}
+            name="email"
+            margin="normal"
+            variant="outlined"
+          />
+          <TextField
+            id="outlined-password-input"
+            label="Password"
+            className={useStyles.textField}
+            type="password"
+            autoComplete="current-password"
+            margin="normal"
+            variant="outlined"
+          />
+          </DialogContent>
+          <DialogActions>
+            <Button variant="contained" color="primary" className={useStyles.button}>
+              Log In
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    ) 
+  }
 }
+
+export default LoginDialog
