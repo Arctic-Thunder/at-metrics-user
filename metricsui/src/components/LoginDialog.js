@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -10,8 +11,14 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import { logInUser } from '../actions/userActions'
 
 // import fetch from 'isomorphic-fetch'
+function mapDispatchToProps(dispatch) {
+  return {
+    logInUser: user => dispatch(logInUser(user))
+  }
+}
 
 const styles = theme => ({
   root: {
@@ -77,29 +84,29 @@ const useStyles = makeStyles(theme => ({
 }));
 
 class LoginDialog extends Component {
-  state = {
-    user: []
+  constructor() {
+    super()
+
+    this.state = {
+      username: "",
+      password: ""
+    }
+
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  componentDidMount() {
-    fetch('https://arcticthunder.azurewebsites.net/api/login/', {
-      mode: 'no-cors',
-      method: 'POST',
-      body: JSON.stringify({
-        username: 'thally',
-        password: 'Audio1919'
-      }),
-      headers: {
-        "Content-Type": "application/json; charset=UTF-8"
-      }
-    })
-    .then(res => console.log(res))
-    // .then(res => res.json())
-    // .then(data => {
-    //   this.setState({ user: data })
-    //   console.log(data)
-    // })
-    // .catch(console.log)
+  handleChange(event) {
+    var currentState = event.target.id === "usernameInput" ? {username: event.target.value} : {password: event.target.value}
+    console.log(currentState)
+    this.setState(currentState)
+  }
+
+  handleSubmit(event) {
+    event.preventDefault()
+    const user = { username: this.state.username, password: this.state.password }
+    this.props.logInUser({user})
+    this.setState({username: "", password: ""})
   }
 
   render() {
@@ -112,25 +119,27 @@ class LoginDialog extends Component {
           </DialogTitle>
           <DialogContent dividers>
           <TextField
-            id="outlined-username-input"
+            id="usernameInput"
             label="Username"
             className={useStyles.textField}
             name="email"
             margin="normal"
             variant="outlined"
+            onChange={this.handleChange}
           />
           <TextField
-            id="outlined-password-input"
+            id="passwordInput"
             label="Password"
             className={useStyles.textField}
             type="password"
             autoComplete="current-password"
             margin="normal"
             variant="outlined"
+            onChange={this.handleChange}
           />
           </DialogContent>
           <DialogActions>
-            <Button variant="contained" color="primary" className={useStyles.button}>
+            <Button variant="contained" color="primary" className={useStyles.button} onClick={this.handleSubmit}>
               Log In
             </Button>
           </DialogActions>
@@ -140,4 +149,4 @@ class LoginDialog extends Component {
   }
 }
 
-export default LoginDialog
+export default connect(null, mapDispatchToProps)(LoginDialog)
