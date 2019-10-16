@@ -15,8 +15,6 @@ export default function ApiPage() {
 
     return (
         <section className="api">
-            <Typography h1>API PAGE</Typography>
-            
             {apidata.map((data) => (
                 <APIPanel name={data.name} description={data.description}/>
             ))}
