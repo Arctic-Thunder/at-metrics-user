@@ -19,13 +19,13 @@ const mapDispatchToProps = dispatch =>
     logInUser(loginParams) {
       dispatch(logInUserAction(loginParams))
     } 
-})
+});
 
 // Link Redux user object to dialog
 const mapStateToProps = state => 
 ({
   user: state.user
-})
+});
 
 // Diaglog styling
 const styles = theme => ({
@@ -93,32 +93,31 @@ const useStyles = makeStyles(theme => ({
 
 class LoginDialog extends Component {
   constructor() {
-    super()
+    super();
 
     this.state = {
       username: "",
       password: ""
-    }
+    };
 
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
-    var currentState = event.target.id === "usernameInput" ? {username: event.target.value} : {password: event.target.value}
-    this.setState(currentState)
+    var currentState = event.target.id === "usernameInput" ? {username: event.target.value} : {password: event.target.value};
+    this.setState(currentState);
   }
 
   handleSubmit(event) {
-    event.preventDefault()
-    const loginParams = { username: this.state.username, password: this.state.password }
-    console.log(`loginParams: ${loginParams.username}`)
-    this.props.logInUser(loginParams)
-    this.setState({username: "", password: ""})
+    event.preventDefault();
+    const loginParams = { username: this.state.username, password: this.state.password };
+    this.props.logInUser(loginParams);
+    this.setState({username: "", password: ""});
   }
 
   render() {
-    const {onClose, open} = this.props
+    const {onClose, open} = this.props;
     return (
       <div className={useStyles.container}>
         <Dialog onClose={onClose} aria-labelledby="customized-dialog-title" open={open}>

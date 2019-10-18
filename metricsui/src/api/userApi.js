@@ -1,7 +1,7 @@
 class UserApi {
     static logInUser(loginParams) {
-        const {username, password} = loginParams
-        console.log(`API: ${username} | ${password}`)
+        const {username, password} = loginParams;
+        console.log(`API: ${username} | ${password}`);
         return fetch('/api/login/', {
             method: 'POST',
             body: JSON.stringify({
@@ -12,9 +12,12 @@ class UserApi {
               'Content-Type': 'application/json'
             }
           })
-          .then(response => { return (
-              {username: username, token: response.json().token}
-            )})
+          .then(response => {
+              console.log(response);
+              return (
+              { username: username, token: response.json().token }
+              )
+          })
           .catch(error => { return error })
     }
 }

@@ -1,17 +1,17 @@
 import userApi from '../api/userApi.js'
 import { LOG_IN_USER } from './actionTypes'
 
-export function logInUser() {
-    return function(dispatch, userCreds) {
+export function logInUser(userCreds) {
+    return function(dispatch) {
         return userApi.logInUser(userCreds)
-            .then(user => {
-                dispatch(logInSuccess(user))
+            .then(userToken => {
+                dispatch(logInSuccess(userToken))
             }).catch(error => {
                 throw(error)
             })
     }
 }
 
-export function logInSuccess(user) {
-    return {type: LOG_IN_USER, user}
+export function logInSuccess(userToken) {
+    return {type: LOG_IN_USER, userToken}
 }
