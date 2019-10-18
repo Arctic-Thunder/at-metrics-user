@@ -1,5 +1,8 @@
 import React from 'react'
-import { Typography } from "@material-ui/core"
+import {
+    Typography,
+    Container
+ } from "@material-ui/core"
 
 import APIPanel from '../components/APIPanel'
 
@@ -14,10 +17,10 @@ export default function ApiPage() {
     ]
 
     return (
-        <section className="api">
+        <Container className="api">
             {apidata.map((data) => (
                 <APIPanel name={data.name} description={data.description}/>
             ))}
-        </section>
+        </Container>
     )
 }

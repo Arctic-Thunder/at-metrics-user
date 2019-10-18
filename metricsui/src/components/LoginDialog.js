@@ -11,15 +11,23 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import { logInUser } from '../actions/userActions'
+import { logInUser as logInUserAction } from '../actions/userActions'
 
-// import fetch from 'isomorphic-fetch'
-function mapDispatchToProps(dispatch) {
-  return {
-    logInUser: user => dispatch(logInUser(user))
-  }
-}
+// Link Redux actions to dialog
+const mapDispatchToProps = dispatch =>
+({
+    logInUser(loginParams) {
+      dispatch(logInUserAction(loginParams))
+    } 
+})
 
+// Link Redux user object to dialog
+const mapStateToProps = state => 
+({
+  user: state.user
+})
+
+// Diaglog styling
 const styles = theme => ({
   root: {
     margin: 0,
@@ -73,7 +81,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2),
   },
   menu: {
-    width: 200,
+    width: 300,
   },
   button: {
     margin: theme.spacing(1),
@@ -98,21 +106,21 @@ class LoginDialog extends Component {
 
   handleChange(event) {
     var currentState = event.target.id === "usernameInput" ? {username: event.target.value} : {password: event.target.value}
-    console.log(currentState)
     this.setState(currentState)
   }
 
   handleSubmit(event) {
     event.preventDefault()
-    const user = { username: this.state.username, password: this.state.password }
-    this.props.logInUser({user})
+    const loginParams = { username: this.state.username, password: this.state.password }
+    console.log(`loginParams: ${loginParams.username}`)
+    this.props.logInUser(loginParams)
     this.setState({username: "", password: ""})
   }
 
   render() {
     const {onClose, open} = this.props
     return (
-      <div>
+      <div className={useStyles.container}>
         <Dialog onClose={onClose} aria-labelledby="customized-dialog-title" open={open}>
           <DialogTitle id="customized-dialog-title" onClose={onClose}>
             Login
@@ -149,4 +157,4 @@ class LoginDialog extends Component {
   }
 }
 
-export default connect(null, mapDispatchToProps)(LoginDialog)
+export default connect(mapStateToProps, mapDispatchToProps)(LoginDialog)
