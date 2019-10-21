@@ -112,7 +112,7 @@ class LoginDialog extends Component {
   handleSubmit(event) {
     event.preventDefault()
     const loginParams = { username: this.state.username, password: this.state.password }
-    console.log(`loginParams: ${loginParams.username}`)
+    console.log(`loginParams: ${loginParams.username}, ${loginParams.password}`)
     this.props.logInUser(loginParams)
     this.setState({username: "", password: ""})
   }
