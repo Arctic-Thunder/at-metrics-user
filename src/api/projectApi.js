@@ -1,10 +1,10 @@
 class ProjectApi {
     static getAllProjects() {
-        return fetch('/api/projects/', {
-            method: 'POST',          
+        return fetch('/projects/', {
+            method: 'GET',          
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': `Token ${'TODO: User Token'}`
+              'Authorization': `Token ${state.user.token}`
             }
           })
           .then(response => { return (
