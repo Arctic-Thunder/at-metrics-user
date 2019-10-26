@@ -110,10 +110,18 @@ class LoginDialog extends Component {
   }
 
   handleSubmit(event) {
+<<<<<<< HEAD:metricsui/src/components/LoginDialog.js
     event.preventDefault();
     const loginParams = { username: this.state.username, password: this.state.password };
     this.props.logInUser(loginParams);
     this.setState({username: "", password: ""});
+=======
+    event.preventDefault()
+    const loginParams = { username: this.state.username, password: this.state.password }
+    console.log(`loginParams: ${loginParams.username}, ${loginParams.password}`)
+    this.props.logInUser(loginParams)
+    this.setState({username: "", password: ""})
+>>>>>>> 2e2ecf698f33a3b3302f80516213af839b681c37:src/components/LoginDialog.js
   }
 
   render() {
