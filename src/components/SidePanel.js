@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function ListItemLink(props) {
-    const { icon, primary, to } = props;
+    const { icon, primary, to, selected, onClick } = props;
   
     const renderLink = React.useMemo(
       () =>
@@ -47,7 +47,7 @@ function ListItemLink(props) {
   
     return (
       <li>
-        <ListItem button component={renderLink}>
+        <ListItem button component={renderLink} selected={selected} onClick={onClick}>
           {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
           <ListItemText primary={primary} />
         </ListItem>
@@ -66,7 +66,10 @@ export default function SidePanel() {
     
     const pages = ['Dashboard', 'Projects', 'API', 'About']
     const icons = [<DeveloperBoard />, <Assignment />, <Code />, <Info />]
-    
+    const [selectedIndex, setSelectedIndex] = React.useState(1)
+    const handleListItemClick = (event, index) => {
+        setSelectedIndex(index)
+    }
 
     return (
         <Drawer
@@ -79,7 +82,13 @@ export default function SidePanel() {
             <div className={classes.toolbar} />
             <List>    
                 {pages.map((text, index) => (
-                    <ListItemLink to={'/'+text.toLowerCase()} primary={text} icon={icons[index]}/>
+                    <ListItemLink
+                        selected={selectedIndex === index}
+                        onClick={event => handleListItemClick(event, index)}
+                        to={'/'+text.toLowerCase()}
+                        primary={text}
+                        icon={icons[index]}
+                    />
                 ))}
             </List>
         </Drawer>

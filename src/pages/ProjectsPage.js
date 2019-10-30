@@ -12,9 +12,12 @@ import {
     Grid,
     Link,
     Typography,
+    Button,
 } from '@material-ui/core'
 
+import ProjectDetailPage from '../pages/ProjectDetailPage'
 import ProjectCard from '../components/ProjectCard'
+import paramCase from 'param-case'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -32,26 +35,38 @@ export default function ProjectsPage() {
         {id: "103", name: "Project 6", description: "My sixth project"},
         {id: "344", name: "Project 7", description: "My seventh project"},
     ]
+
+    const breadcrumbNameMap = {
+        '/projects': 'Projects',
+        '/projects/:project_id': ""
+      };
     
     const classes = useStyles()
     let { path, url } = useRouteMatch()
 
     return (
         <section className="projects">
-            <Grid
-                container
-                spacing={4}
-                direction="row"
-                justify="flex-start"
-            >
-                {projectdata.map((data) => (
-                    <Grid item>
-                        <Link underline='none' to={`${url}/${data.id}`} component={RouterLink}>
-                            <ProjectCard name={data.name} description={data.description}/>
-                        </Link>
+            <Switch>
+                <Route exact path="/projects">
+                    <Grid
+                    container
+                    spacing={4}
+                    direction="row"
+                    justify="flex-start"
+                    >
+                        {projectdata.map((project) => (
+                            <Grid item>
+                                <Link underline='none' to={`${url}/${project.id}`} component={RouterLink}>
+                                    <ProjectCard project={project}/>
+                                </Link>
+                            </Grid>
+                        ))}
                     </Grid>
-            ))}
-            </Grid>
+                </Route>
+                <Route path="/projects/:project_id">
+                    <ProjectDetailPage />
+                </Route>
+            </Switch>
         </section>
     )
 }

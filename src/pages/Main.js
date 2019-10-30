@@ -49,12 +49,21 @@ export default function MainPage() {
             <main className={classes.content}>
                 <div className={classes.toolbar} />
                 <Switch>
-                    <Route exact path ="/" component={WelcomePage} />
-                    <Route path ="/dashboard" component={DashboardPage} />
-                    <Route path="/projects" component={ProjectsPage} />
-                    <Route path="projects/:project_id" component={ProjectDetailPage} />
-                    <Route path="/api" component={ApiPage} />
-                    <Route path="/about" component={WelcomePage} />
+                    <Route exact path ="/">
+                        <WelcomePage />
+                    </Route>
+                    <Route path ="/dashboard">
+                        <DashboardPage />
+                    </Route>
+                    <Route path="/projects">
+                        <ProjectsPage />
+                    </Route>
+                    <Route path="/api">
+                        <ApiPage />
+                    </Route>
+                    <Route path="/about">
+                        <WelcomePage />    
+                    </Route>
                 </Switch>
             </main>
         </div>

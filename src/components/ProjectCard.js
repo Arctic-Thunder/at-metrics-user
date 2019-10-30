@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 });
 
 export default function ProjectCard(props) {
-  const {id, name, description } = props
+  const { id, name, description } = props.project
   const classes = useStyles();
 
   return (
