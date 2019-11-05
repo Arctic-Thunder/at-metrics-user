@@ -16,7 +16,7 @@ import ApiPage from './ApiPage'
 import DashboardPage from './DashboardPage'
 import ProjectsPage from './ProjectsPage'
 import WelcomePage from './WelcomePage'
-import ProjectDetailPage from './ProjectDetailPage'
+import LoginPage from './LoginPage'
 
 
 const useStyles = makeStyles(theme => ({
@@ -49,8 +49,8 @@ export default function MainPage() {
             <main className={classes.content}>
                 <div className={classes.toolbar} />
                 <Switch>
-                    <Route exact path ="/">
-                        <WelcomePage />
+                    <Route exact path ={["/", "/login", "/register"]}>
+                        <LoginPage />
                     </Route>
                     <Route path ="/dashboard">
                         <DashboardPage />

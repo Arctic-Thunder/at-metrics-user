@@ -10,8 +10,8 @@ import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
 import { logInUser as logInUserAction } from '../actions/userActions'
+import Login from './Login'
 
 // Link Redux actions to dialog
 const mapDispatchToProps = dispatch =>
@@ -91,7 +91,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-class LoginDialog extends Component {
+class LoginModal extends Component {
   constructor() {
     super();
 
@@ -125,25 +125,7 @@ class LoginDialog extends Component {
             Login
           </DialogTitle>
           <DialogContent dividers>
-          <TextField
-            id="usernameInput"
-            label="Username"
-            className={useStyles.textField}
-            name="email"
-            margin="normal"
-            variant="outlined"
-            onChange={this.handleChange}
-          />
-          <TextField
-            id="passwordInput"
-            label="Password"
-            className={useStyles.textField}
-            type="password"
-            autoComplete="current-password"
-            margin="normal"
-            variant="outlined"
-            onChange={this.handleChange}
-          />
+            <Login />
           </DialogContent>
           <DialogActions>
             <Button variant="contained" color="primary" className={useStyles.button} onClick={this.handleSubmit}>
@@ -156,4 +138,4 @@ class LoginDialog extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginDialog)
+export default connect(mapStateToProps, mapDispatchToProps)(LoginModal)

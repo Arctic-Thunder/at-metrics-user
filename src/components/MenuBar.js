@@ -19,7 +19,7 @@ import {
 } from '@material-ui/icons'
 
 import SidePanel from './SidePanel'
-import LoginDialog from './LoginDialog'
+import LoginModal from './LoginModal'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -63,7 +63,7 @@ export default function MenuBar() {
                     Arctic Thunder Metrics
                 </Typography>
                 <Button variant="outlined" color="inherit" onClick={handleClickLogin}>Login</Button>
-                <LoginDialog onClose={handleClose} open={open} />
+                <LoginModal onClose={handleClose} open={open} />
             </Toolbar>
         </AppBar>
     )
