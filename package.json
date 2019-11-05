@@ -40,5 +40,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://arcticthunder.azurewebsites.net:80/api"
+  "proxy": "http://arcticthunder.azurewebsites.net:80/api",
+  "devDependencies": {
+    "eslint-plugin-react-hooks": "^2.2.0"
+  }
 }

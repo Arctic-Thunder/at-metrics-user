@@ -13,7 +13,6 @@ import {
      Switch,
      Route,
      Link as RouterLink,
-     useRouteMatch,
  } from "react-router-dom"
 
 import Login from '../components/Login'
@@ -35,7 +34,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function LoginPage() {
     const classes = useStyles();
-    let { path, url } = useRouteMatch()
     
     return (
         <div className={classes.root}>

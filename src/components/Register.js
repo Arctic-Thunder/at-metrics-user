@@ -20,17 +20,17 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const RegisterTextField = withStyles(useStyles)(props => {
-    const { name, label, classes, handleChange, ...other } = props;
+const RegisterTextField = (props => {
+    const { name, label, type, classes, handleChange, ...other } = props;
     return (
         <TextField
             id={`${name}Input`}
             label={label}
             name={name}
+            type={type}
             margin="normal"
             variant='outlined'
             fullWidth
-            className={classes.textField}
             onChange={handleChange}
         />
     )
@@ -44,9 +44,10 @@ class Register extends React.Component {
         this.state = {
             email: "",
             username: "",
-            password: ""
+            password: "",
+            verifyPassword: false
         };
-    
+
         this.handleChange = this.handleChange.bind(this); 
     }
 
@@ -63,8 +64,14 @@ class Register extends React.Component {
             case 'password':
                 this.setState({password: event.target.value})
             break
-            
+
+            case 'verifyPassword':
+                this.setState({verifyPassword: event.target.value === this.state.password})
+            break
+
             default:
+                console.log(`Error: ${event.target.name}`)
+            break
         }
     };
 
@@ -75,9 +82,9 @@ class Register extends React.Component {
                 <Divider />
                 <RegisterTextField name="usrName" label="Organization/User Name" classes={useStyles.textField} handleChange={this.handleChange} />
                 <RegisterTextField name="email" label="Email" classes={useStyles.textField} handleChange={this.handleChange} />
-                <RegisterTextField name="password" label="Password" classes={useStyles.textField} handleChange={this.handleChange} />
-                <RegisterTextField name="verifyPassword" label="Verify" classes={useStyles.textField} handleChange={this.handleChange} />
-                <Button color='primary' variant='contained'>Register</Button>
+                <RegisterTextField name="password" label="Password" type="password" classes={useStyles.textField} handleChange={this.handleChange} />
+                <RegisterTextField name="verifyPassword" label="Verify" type="password" classes={useStyles.textField} handleChange={this.handleChange} />
+                <Button color='primary' variant='contained' disabled={!this.state.verifyPassword}>Register</Button>
             </div>
 
         )
