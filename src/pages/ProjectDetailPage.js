@@ -6,12 +6,12 @@ import {
 import MaterialTable from 'material-table'
 
 export default function ProjectDetailPage(props) {
-    const { id, name, description } = {id:5, name:"My Page", description:"Page description."}
+    const { id, name, description } = {id:5, name:"Project Details", description:"Metrics for this project are shown below."}
 
     return (
         <section className="project-detail">
-            <Typography align="left" variant="h4">{name}</Typography>
-            <Typography align="left" variant="body1">
+            <Typography align="middle" variant="h4">{name}</Typography>
+            <Typography align="middle" variant="body1">
                 {description}
             </Typography>
             
