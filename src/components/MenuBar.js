@@ -1,25 +1,20 @@
 import React from 'react';
-import Icon from '@material-ui/core/Icon';
 import {
-    Route,
-    Switch,
+    Link as RouterLink
 } from 'react-router-dom'
 
 import {
-    CssBaseline,
     makeStyles,
     AppBar,
     Toolbar,
     Typography,
     Button,
+    Link,
  } from '@material-ui/core'
 
  import {
     Equalizer,
 } from '@material-ui/icons'
-
-import SidePanel from './SidePanel'
-import LoginModal from './LoginModal'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -44,15 +39,6 @@ const useStyles = makeStyles(theme => ({
 export default function MenuBar() {
     const classes = useStyles()
 
-    const [open, setOpen] = React.useState(false)
-    const handleClickLogin = () => {
-        setOpen(true);
-    }
-
-    const handleClose = () => {
-        setOpen(false);
-    }
-
     return (
         <AppBar position="fixed" className={classes.appBar}>
             <Toolbar>
@@ -62,8 +48,9 @@ export default function MenuBar() {
                 <Typography align="left" variant="h6" className={classes.title}>
                     Arctic Thunder Metrics
                 </Typography>
-                <Button variant="outlined" color="inherit" onClick={handleClickLogin}>Login</Button>
-                <LoginModal onClose={handleClose} open={open} />
+                <Link color='inherit' underline='none' to={`/login`} component={RouterLink}>
+                    <Button variant="outlined" color="inherit" >Login</Button>
+                </Link>
             </Toolbar>
         </AppBar>
     )

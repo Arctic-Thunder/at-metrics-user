@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {
-    Grid,
+    Typography,
+    Divider,
     TextField
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -33,41 +34,29 @@ class Login extends React.Component {
     render() {
         return (
             <div>
-                <Grid
-                    direction="column"
-                >
-                    <Grid
-                        item
-                        xs
-                    >
-                        <TextField
-                            id="usernameInput"
-                            label="Username"
-                            className={useStyles.textField}
-                            name="email"
-                            margin="normal"
-                            variant="outlined"
-                            fullWidth
-                            onChange={this.handleChange}
-                        />
-                    </Grid>
-                    <Grid
-                        item
-                        xs
-                    >
-                        <TextField
-                            id="passwordInput"
-                            label="Password"
-                            className={useStyles.textField}
-                            type="password"
-                            autoComplete="current-password"
-                            margin="normal"
-                            variant="outlined"
-                            fullWidth
-                            onChange={this.handleChange}
-                        />
-                    </Grid>
-                </Grid>
+              <Typography variant='h5' align='left'>Login</Typography>
+              <Divider />
+              <TextField
+                  id="usernameInput"
+                  label="Username"
+                  className={useStyles.textField}
+                  name="email"
+                  margin="normal"
+                  variant="outlined"
+                  fullWidth
+                  onChange={this.handleChange}
+              />
+              <TextField
+                  id="passwordInput"
+                  label="Password"
+                  className={useStyles.textField}
+                  type="password"
+                  autoComplete="current-password"
+                  margin="normal"
+                  variant="outlined"
+                  fullWidth
+                  onChange={this.handleChange}
+              />
             </div>
         )
     }
