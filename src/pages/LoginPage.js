@@ -21,6 +21,7 @@ import Register from '../components/Register'
 const useStyles = makeStyles(theme => ({
     root: {
       flexGrow: 1,
+      marginLeft: -240,
     },
     textField: {
         marginLeft: theme.spacing(1),

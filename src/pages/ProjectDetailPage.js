@@ -5,11 +5,21 @@ import {
 
 import MaterialTable from 'material-table'
 
-export default function ProjectDetailPage(props) {
-    const { id, name, description } = {id:5, name:"Project Details", description:"Metrics for this project are shown below."}
+import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
 
+export const ProjectDetailPage = (props) => {
+    const renderRedirect = () => {
+        if(!props.isAuthenticated) {
+            console.log("Redirect Loaded")
+            return( <Redirect to="/login" /> )
+        }
+    }
+
+    const { name, description } = props.project
     return (
         <section className="project-detail">
+            {renderRedirect()}
             <Typography align="middle" variant="h4">{name}</Typography>
             <Typography align="middle" variant="body1">
                 {description}
@@ -27,3 +37,15 @@ export default function ProjectDetailPage(props) {
         </section>
     )
 }
+
+const mapStateToProps = ( state, ownProps ) => 
+{
+    const { user, projects } = state
+    console.log(state)
+    return { 
+        isAuthenticated: user.info.token !== undefined,
+        project: projects[ownProps.project_id]
+    }
+}
+
+export default connect(mapStateToProps)(ProjectDetailPage)
