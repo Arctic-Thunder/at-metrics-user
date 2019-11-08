@@ -41,10 +41,12 @@ export const ProjectDetailPage = (props) => {
 const mapStateToProps = ( state, ownProps ) => 
 {
     const { user, projects } = state
-    console.log(state)
+
     return { 
         isAuthenticated: user.info.token !== undefined,
-        project: projects[ownProps.project_id]
+        project: projects.find( element => {
+            return element.id === ownProps.project_id
+        })
     }
 }
 
