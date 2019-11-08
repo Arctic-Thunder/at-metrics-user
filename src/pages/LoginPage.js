@@ -35,6 +35,8 @@ const useStyles = makeStyles(theme => ({
 export default function LoginPage() {
     const classes = useStyles();
     
+
+
     return (
         <div className={classes.root}>
             <Switch>
@@ -55,7 +57,6 @@ export default function LoginPage() {
                             <Card className={classes.card}>
                                 <CardContent>
                                     <Login />
-                                    <Button variant="contained" color="primary">Login</Button>
                                 </CardContent>
                             </Card>
                         </Grid>
