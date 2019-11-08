@@ -12,26 +12,6 @@ import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logInUser as logInUserAction } from '../actions/userActions'
 
-// Link Redux actions to dialog
-const mapDispatchToProps = dispatch =>
-({
-    logInUser(username, password) {
-      dispatch(logInUserAction(username, password))
-    } 
-});
-
-// Link Redux user object to dialog
-const mapStateToProps = ( state ) => 
-{
-    const { user } = state
-    return { 
-        user: user.info,
-        loading: user.loading,
-        error: user.error,
-        isAuthenticated: user.info.token !== undefined
-    }
-}
-
 const useStyles = makeStyles(theme => ({
     container: {
       display: 'flex',
@@ -127,6 +107,26 @@ const Login = (props) => {
             </Fade>
         </div>
     )
+}
+
+// Link Redux actions to dialog
+const mapDispatchToProps = dispatch =>
+({
+    logInUser(username, password) {
+      dispatch(logInUserAction(username, password))
+    } 
+});
+
+// Link Redux user object to dialog
+const mapStateToProps = ( state ) => 
+{
+    const { user } = state
+    return { 
+        user: user.info,
+        loading: user.loading,
+        error: user.error,
+        isAuthenticated: user.info.token !== undefined
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

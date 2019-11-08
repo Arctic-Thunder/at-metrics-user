@@ -23,16 +23,6 @@ import {
 
 import { connect } from 'react-redux'
 
-// Link Redux user object to dialog
-const mapStateToProps = state => 
-{
-    const { user } = state
-    return {
-        user: user.info,
-        isAuthenticated: user.info.token !== undefined
-    }
-}
-
 const drawerWidth = 240
 const useStyles = makeStyles(theme => ({
     drawer: {
@@ -110,6 +100,16 @@ const SidePanel = (props) => {
             </List>
         </Drawer>
     )
+}
+
+// Link Redux user object to dialog
+const mapStateToProps = state => 
+{
+    const { user } = state
+    return {
+        user: user.info,
+        isAuthenticated: user.info.token !== undefined
+    }
 }
 
 export default connect(mapStateToProps)(SidePanel)

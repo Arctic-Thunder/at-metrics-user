@@ -1,9 +1,5 @@
 import userApi from '../api/userApi.js'
-import { 
-    LOG_IN_LOADING,
-    LOG_IN_FAILURE,
-    LOG_IN_SUCCESS,
- } from './actionTypes'
+import { user as type } from './actionTypes'
 
 export const logInUser = ( username, password ) => {
     return ( dispatch, getState ) => {
@@ -21,17 +17,30 @@ export const logInUser = ( username, password ) => {
 
 export const  logInLoading = () => {
     return {
-        type: LOG_IN_LOADING
+        type: type.LOG_IN_LOADING
     }
 }
 
 export const logInFailure = ( error ) => {
     return {
-        type: LOG_IN_FAILURE,
+        type: type.LOG_IN_FAILURE,
         payload: { error }
     }
 }
 
 export const logInSuccess = ( userData ) => {
-    return { type: LOG_IN_SUCCESS, payload: userData }
+    return {
+        type: type.LOG_IN_SUCCESS,
+        payload: { userData }
+    }
+}
+
+export const logOutUser = () => {
+    return ( dispatch, getState ) => {
+        dispatch(logOutSuccess())
+    }
+}
+
+export const logOutSuccess = () => {
+    return { type: type.LOG_OUT_SUCCESS }
 }

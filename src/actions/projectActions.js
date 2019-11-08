@@ -1,7 +1,5 @@
 import projectApi from '../api/projectApi'
-import {
-    GET_ALL_PROJECTS
-} from './actionTypes'
+import { project as type } from './actionTypes'
 
 export function getAllProjects() {
     return function(dispatch) {
@@ -14,6 +12,22 @@ export function getAllProjects() {
     }
 }
 
-export function getAllProjectsSuccess(projects) {
-    return {type: GET_ALL_PROJECTS, projects}
+export const getAllProjectsLoading = () => {
+    return {
+        type: type.GET_ALL_PROJECTS_LOADING
+    }
+}
+
+export const getAllProjectsFailure = error => {
+    return {
+        type: type.GET_ALL_PROJECTS_FAILURE,
+        payload: { error }
+    }
+}
+export const getAllProjectsSuccess = projects => {
+    console.log(`Projects: ${projects}`)
+    return {
+        type: type.GET_ALL_PROJECTS_SUCCESS,
+        payload: { projects }
+    }
 }

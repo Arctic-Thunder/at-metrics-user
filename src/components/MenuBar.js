@@ -2,7 +2,8 @@ import React from 'react';
 import {
     Link as RouterLink
 } from 'react-router-dom'
-
+import { connect } from 'react-redux'
+import { logOutUser as logOutUserAction } from '../actions/userActions'
 import {
     makeStyles,
     AppBar,
@@ -36,8 +37,14 @@ const useStyles = makeStyles(theme => ({
     toolbar: theme.mixins.toolbar,
 }))
 
-export default function MenuBar() {
+export const MenuBar = (props) => {
     const classes = useStyles()
+
+    const handleLogout = (event) => {
+        if (props.isAuthenticated) {
+            props.logOutUser()
+        }
+    }
 
     return (
         <AppBar position="fixed" className={classes.appBar}>
@@ -49,9 +56,27 @@ export default function MenuBar() {
                     Arctic Thunder Metrics
                 </Typography>
                 <Link color='inherit' underline='none' to={`/login`} component={RouterLink}>
-                    <Button variant="outlined" color="inherit" >Login</Button>
+                    <Button variant="outlined" color="inherit" onClick={handleLogout} > {props.isAuthenticated ? "Logout" : "Login"} </Button>
                 </Link>
             </Toolbar>
         </AppBar>
     )
 }
+
+// Link Redux user object to dialog
+const mapStateToProps = state => 
+{
+    const { user } = state
+    return {
+        user: user.info,
+        isAuthenticated: user.info.token !== undefined
+    }
+}
+
+const mapDispatchToProps = dispatch => ({
+    logOutUser() {
+        dispatch(logOutUserAction())
+    }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(MenuBar)
