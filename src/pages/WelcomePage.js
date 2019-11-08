@@ -17,6 +17,7 @@ import {
 const useStyles = makeStyles(theme => ({
     card: {
       maxWidth: 700,
+      minWidth: 400,
     },
     media: {
       height: 250,
@@ -45,45 +46,43 @@ const useStyles = makeStyles(theme => ({
             justify="center"
             style={{ minHeight: '100vh'}}
             >
-        <Grid item xs={3}>
-        <Card className={classes.card}>
-            <CardActionArea>
-            <CardMedia
-                className={classes.media}
-                image="https://icon-library.net/images/man-png-icon/man-png-icon-2.jpg"
-            />
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                    Welcome to Arctic Thunder Metrics
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                    With this application, you will be able to:
-                    <div className={classes.demo}>
-                        <List>
-                            <ListItem>
-                            <CheckCircleOutline />
-                            <ListItemText
-                                primary="  Add, edit, and delete the projects you want metrics for."
-                            />
-                            </ListItem>
-                            <ListItem>
-                            <CheckCircleOutline />
-                            <ListItemText
-                                primary="Edit and delete your metrics."
-                            />
-                            </ListItem>
-                            <ListItem>
-                            <CheckCircleOutline />
-                            <ListItemText
-                                primary="View your metrics based upon the projects you have."
-                            />
-                            </ListItem>
-                        </List>
-                    </div>
-                </Typography>
-            </CardContent>
-            </CardActionArea>
-        </Card> 
+        <Grid item>
+            <Card className={classes.card}>
+                <CardMedia
+                    className={classes.media}
+                    image="https://icon-library.net/images/man-png-icon/man-png-icon-2.jpg"
+                />
+                <CardContent>
+                    <Typography gutterBottom variant="h5">
+                        Welcome to Arctic Thunder Metrics
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                        With this application, you will be able to:
+                        <div className={classes.demo}>
+                            <List>
+                                <ListItem>
+                                <CheckCircleOutline />
+                                <ListItemText
+                                    primary="Add, edit, and delete the projects you want metrics for."
+                                />
+                                </ListItem>
+                                <ListItem>
+                                <CheckCircleOutline />
+                                <ListItemText
+                                    primary="Edit and delete your metrics."
+                                />
+                                </ListItem>
+                                <ListItem>
+                                <CheckCircleOutline />
+                                <ListItemText
+                                    primary="View your metrics based upon the projects you have."
+                                />
+                                </ListItem>
+                            </List>
+                        </div>
+                    </Typography>
+                </CardContent>
+            </Card> 
         </Grid>
       </Grid>
     );

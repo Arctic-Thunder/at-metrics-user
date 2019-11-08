@@ -1,17 +1,37 @@
 import userApi from '../api/userApi.js'
-import { LOG_IN_USER } from './actionTypes'
+import { 
+    LOG_IN_LOADING,
+    LOG_IN_FAILURE,
+    LOG_IN_SUCCESS,
+ } from './actionTypes'
 
-export function logInUser(userCreds) {
-    return function(dispatch) {
-        return userApi.logInUser(userCreds)
-            .then(userToken => {
-                dispatch(logInSuccess(userToken))
+export const logInUser = ( username, password ) => {
+    return ( dispatch, getState ) => {
+        dispatch(logInLoading(true))
+
+        userApi.logInUser( username, password )
+            .then(userData => {
+                dispatch(logInSuccess(userData))
             }).catch(error => {
+                dispatch(logInFailure(true))
                 throw(error)
             })
     }
 }
 
-export function logInSuccess(userToken) {
-    return {type: LOG_IN_USER, userToken}
+export const  logInLoading = () => {
+    return {
+        type: LOG_IN_LOADING
+    }
+}
+
+export const logInFailure = ( error ) => {
+    return {
+        type: LOG_IN_FAILURE,
+        payload: { error }
+    }
+}
+
+export const logInSuccess = ( userData ) => {
+    return { type: LOG_IN_SUCCESS, payload: userData }
 }

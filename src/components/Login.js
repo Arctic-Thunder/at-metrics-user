@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { useState } from 'react';
 import {
     Typography,
     Divider,
@@ -8,22 +8,29 @@ import {
     Fade,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logInUser as logInUserAction } from '../actions/userActions'
 
 // Link Redux actions to dialog
 const mapDispatchToProps = dispatch =>
 ({
-    logInUser(loginParams) {
-      dispatch(logInUserAction(loginParams))
+    logInUser(username, password) {
+      dispatch(logInUserAction(username, password))
     } 
 });
 
 // Link Redux user object to dialog
-const mapStateToProps = state => 
-({
-  user: state.user
-});
+const mapStateToProps = ( state ) => 
+{
+    const { user } = state
+    return { 
+        user: user.info,
+        loading: user.loading,
+        error: user.error,
+        isAuthenticated: user.info.token !== undefined
+    }
+}
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -48,28 +55,18 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-class Login extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            username: "",
-            password: "",
-            loading: false,
-            success: false,
-        }
+const Login = (props) => {
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleChange(event) {
+    const handleChange = (event) => {
         switch (event.target.id) {
             case 'usernameInput':
-                this.setState({username: event.target.value})
+                setUsername(event.target.value)
             break
 
             case 'passwordInput':
-                this.setState({password: event.target.value})
+                setPassword(event.target.value)
             break
 
             default:
@@ -77,53 +74,59 @@ class Login extends React.Component {
         }
     }
 
-    handleSubmit(event) {
-        event.preventDefault();
-        this.setState({loading: true})
-        const loginParams = { username: this.state.username, password: this.state.password };
-        this.props.logInUser(loginParams);
-        this.setState({username: "", password: ""});
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        props.logInUser(username, password)
+        setUsername("")
+        setPassword("")
     }
 
-    render() {
-        return (
-            <div>
-                <Typography variant='h5' align='left'>Login</Typography>
-                <Divider />
-                <TextField
-                    id="usernameInput"
-                    label="Username"
-                    className={useStyles.textField}
-                    name="email"
-                    margin="normal"
-                    variant="outlined"
-                    fullWidth
-                    onChange={this.handleChange}
-                />
-                <TextField
-                    id="passwordInput"
-                    label="Password"
-                    className={useStyles.textField}
-                    type="password"
-                    autoComplete="current-password"
-                    margin="normal"
-                    variant="outlined"
-                    fullWidth
-                    onChange={this.handleChange}
-                />
-                <Button variant="contained" color="primary" onClick={this.handleSubmit}>Login</Button>
-                <Fade
-                    in={this.state.loading && this.props.user.token === ''}
-                    style={{
-                        transitionDelay: this.state.loading && this.props.user.token === '' ? '800ms' : '0ms',
-                    }}
-                    unmountOnExit
-                >
-                    <LinearProgress />
-                </Fade>
-            </div>
-        )
+    const renderRedirect = () => {
+        if(props.isAuthenticated) {
+            return( <Redirect to="/dashboard" /> )
+        }
     }
+
+    return (
+        <div>
+            {renderRedirect()}
+            <Typography variant='h5' align='left'>Login</Typography>
+            <Divider />
+            <TextField
+                id="usernameInput"
+                label="Username"
+                className={useStyles.textField}
+                name="email"
+                margin="normal"
+                variant="outlined"
+                fullWidth
+                value={username}
+                onChange={handleChange}
+            />
+            <TextField
+                id="passwordInput"
+                label="Password"
+                className={useStyles.textField}
+                type="password"
+                autoComplete="current-password"
+                margin="normal"
+                variant="outlined"
+                fullWidth
+                value={password}
+                onChange={handleChange}
+            />
+            <Button variant="contained" color="primary" onClick={handleSubmit}>Login</Button>
+            <Fade
+                in={props.loading}
+                style={{
+                    transitionDelay: props.loading ? '800ms' : '0ms',
+                }}
+                unmountOnExit
+            >
+                <LinearProgress />
+            </Fade>
+        </div>
+    )
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

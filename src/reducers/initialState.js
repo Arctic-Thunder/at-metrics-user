@@ -1,5 +1,9 @@
 export default {
-    user: {},
+    user: {
+        info: {},
+        loading: false,
+        error: null,
+    },
     projects: [],
-    metrics: []
+    metrics: [],
 }

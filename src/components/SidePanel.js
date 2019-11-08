@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { 
-    Link as RouterLink
+    Link as RouterLink,
+    Redirect,
  } from 'react-router-dom'
 
 import PropTypes from 'prop-types'
@@ -19,6 +20,18 @@ import {
     Code,
     Info,
  } from '@material-ui/icons'
+
+import { connect } from 'react-redux'
+
+// Link Redux user object to dialog
+const mapStateToProps = state => 
+{
+    const { user } = state
+    return {
+        user: user.info,
+        isAuthenticated: user.info.token !== undefined
+    }
+}
 
 const drawerWidth = 240
 const useStyles = makeStyles(theme => ({
@@ -61,20 +74,23 @@ ListItemLink.propTypes = {
     to: PropTypes.string.isRequired,
 };
 
-export default function SidePanel() {
-    const classes = useStyles()
-    
+const SidePanel = (props) => {
     const pages = ['Dashboard', 'Projects', 'API', 'About']
     const icons = [<DeveloperBoard />, <Assignment />, <Code />, <Info />]
-    const [selectedIndex, setSelectedIndex] = React.useState(1)
+
+    const [selectedIndex, setSelectedIndex] = useState(0)
+    
     const handleListItemClick = (event, index) => {
         setSelectedIndex(index)
     }
 
+    const classes = useStyles()
+
     return (
         <Drawer
             className={classes.drawer}
-            variant="permanent"
+            variant='persistent'
+            open={props.isAuthenticated}
             classes={{
                 paper: classes.drawerPaper,
             }}
@@ -83,6 +99,7 @@ export default function SidePanel() {
             <List>    
                 {pages.map((text, index) => (
                     <ListItemLink
+                        key={index}
                         selected={selectedIndex === index}
                         onClick={event => handleListItemClick(event, index)}
                         to={'/'+text.toLowerCase()}
@@ -94,3 +111,5 @@ export default function SidePanel() {
         </Drawer>
     )
 }
+
+export default connect(mapStateToProps)(SidePanel)
