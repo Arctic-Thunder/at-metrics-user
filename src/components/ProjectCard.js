@@ -1,23 +1,31 @@
 import React from 'react';
 
 import {
+    Link as RouterLink,
+    useRouteMatch,
+} from 'react-router-dom'
+
+import {
     makeStyles,
     Card,
     CardActionArea,
     CardContent,
     Typography,
+    Link,
 } from '@material-ui/core'
+
+import { grey } from '@material-ui/core/colors';
 
 const useStyles = makeStyles({
   card: {
-    minWidth: 275,
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
+    minWidth: 200,
+    minHeight: 1.1*275,
+    backgroundColor: grey[200],
   },
   title: {
+    fontSize: 18,
+  },
+  subtitle: {
     fontSize: 14,
   },
   pos: {
@@ -26,21 +34,24 @@ const useStyles = makeStyles({
 });
 
 export default function ProjectCard(props) {
-  const { id, name, description } = props.project
-  const classes = useStyles();
+    const { id, name, description } = props.project
+    const classes = useStyles();
+    let { path, url } = useRouteMatch()
 
-  return (
-        <Card className={classes.card}>
-          <CardActionArea>
-            <CardContent>
-              <Typography variant="h5" component="h2" >
-                {name}
-              </Typography>
-              <Typography className={classes.title} color="textSecondary" gutterBottom>
-                {description}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-  );
+    return (
+        <Link underline='none' to={`${url}/${id}`} component={RouterLink}>
+            <Card className={classes.card}>
+                <CardActionArea>
+                    <CardContent className = {classes.card}>
+                        <Typography className={classes.title} >
+                            {name}
+                        </Typography>
+                        <Typography className={classes.subtitle} color="textSecondary" gutterBottom>
+                            {description}
+                        </Typography>
+                    </CardContent>
+                </CardActionArea>
+            </Card>
+        </Link>
+    );
 }
