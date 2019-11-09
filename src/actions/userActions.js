@@ -7,9 +7,9 @@ export const logInUser = ( username, password ) => {
 
         userApi.logInUser( username, password )
             .then(userData => {
-                dispatch(logInSuccess(userData))
+                dispatch(logInSuccess( userData ))
             }).catch(error => {
-                dispatch(logInFailure(true))
+                dispatch(logInFailure( error ))
                 throw(error)
             })
     }

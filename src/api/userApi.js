@@ -9,14 +9,14 @@ class UserApi {
             headers: {
               'Content-Type': 'application/json'
             }
-          })
-          .then(response => response.json()) 
-          .then(data => {
+        })
+        .then(response => response.json()) 
+        .then(data => {
             return (
-              { username: username, token: data.token }
+                { username: username, token: data.token }
             )
-          })
-          .catch(error => { return error })
+        })
+        .catch(error => { return error })
     }
 }
 

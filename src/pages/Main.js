@@ -14,7 +14,7 @@ import MenuBar from '../components/MenuBar'
 import SidePanel from '../components/SidePanel'
 import ApiPage from './ApiPage'
 import DashboardPage from './DashboardPage'
-import ProjectsPage from './ProjectsPage'
+import ProjectsPageWrapper from './ProjectsPageWrapper'
 import WelcomePage from './WelcomePage'
 import LoginPage from './LoginPage'
 
@@ -56,7 +56,7 @@ export default function MainPage() {
                         <DashboardPage />
                     </Route>
                     <Route path="/projects">
-                        <ProjectsPage />
+                        <ProjectsPageWrapper />
                     </Route>
                     <Route path="/api">
                         <ApiPage />

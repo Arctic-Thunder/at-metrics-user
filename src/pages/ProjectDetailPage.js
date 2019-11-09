@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
     Typography,
 } from '@material-ui/core'
@@ -7,21 +7,23 @@ import MaterialTable from 'material-table'
 
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { getProject as getProjectAction } from '../actions/projectActions'
 
 export const ProjectDetailPage = (props) => {
-    const renderRedirect = () => {
-        if(!props.isAuthenticated) {
-            console.log("Redirect Loaded")
-            return( <Redirect to="/login" /> )
-        }
-    }
+    const { isAuthenticated } = props
 
-    const { name, description } = props.project
+    useEffect( () => {
+        if ( props.project === undefined ) {
+            props.getProject(props.project_id)
+        }
+    }, [] )
+
+    const { name, description } = props.project !== undefined ? props.project : { name:"", description:"" }
+
     return (
         <section className="project-detail">
-            {renderRedirect()}
-            <Typography align="middle" variant="h4">{name}</Typography>
-            <Typography align="middle" variant="body1">
+            <Typography variant='h4'>{name}</Typography>
+            <Typography variant='body1'>
                 {description}
             </Typography>
             
@@ -44,10 +46,16 @@ const mapStateToProps = ( state, ownProps ) =>
 
     return { 
         isAuthenticated: user.info.token !== undefined,
-        project: projects.find( element => {
-            return element.id === ownProps.project_id
+        project: projects.data.find( element => {
+            return element.id == ownProps.project_id
         })
     }
 }
 
-export default connect(mapStateToProps)(ProjectDetailPage)
+const mapDispatchToProps = dispatch => {
+    return {
+        getProject: id => dispatch(getProjectAction(id)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectDetailPage)

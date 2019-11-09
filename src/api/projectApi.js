@@ -1,16 +1,39 @@
 class ProjectApi {
-    static getAllProjects() {
+    // Gets all projects
+    static getAllProjects( token ) {
         return fetch('/projects/', {
-            method: 'GET',          
+            method: 'GET',
             headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Token ${state.user.token}`
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${token}`
             }
-          })
-          .then(response => { return (
-              response.json()
-            )})
-          .catch(error => { return error })
+        })
+        .then(response => response.json()) 
+        .then(data => {
+            return (
+                data
+            )
+        })
+        .catch(error => { return error })
+    }
+
+    // Gets a specific project
+    static getProject ( token, id ) {
+        console.log(`Fetching: projects/${id}/`)
+        return fetch(`/projects/${id}/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${token}`
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            return (
+                data
+            )
+        })
+        .catch( error => { return error })
     }
 }
 
