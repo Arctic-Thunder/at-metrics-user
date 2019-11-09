@@ -1,6 +1,10 @@
 import projectApi from '../api/projectApi'
 import { project as type } from './actionTypes'
 
+const getToken = (getState) => {
+    return getState().user.info.token
+}
+
 // Get all projects
 export const getAllProjects = () => {
     return ( dispatch, getState ) => {
@@ -40,7 +44,7 @@ export const getProject = (id) => {
     return ( dispatch, getState ) => {
         dispatch(getProjectLoading())
 
-        projectApi.getProject( getState().user.info.token, id )
+        projectApi.getProject( getToken(getState), id )
             .then(project => {
                 dispatch(getProjectSuccess( project ))
             }).catch( error => {
@@ -66,6 +70,41 @@ export const getProjectFailure = error => {
 export const getProjectSuccess = project => {
     return {
         type: type.GET_PROJECT_SUCCESS,
+        payload: { project }
+    }
+}
+
+// Create new project
+export const createProject = (name, description) => {
+    return ( dispatch, getState ) => {
+        dispatch(createProjectLoading())
+
+        projectApi.createProject( getToken(getState), name, description )
+            .then(project => {
+                dispatch(getProjectSuccess( project ))
+            }).catch( error => {
+                dispatch(createProjectFailure( error ))
+                throw(error)
+            })
+    }
+}
+
+export const createProjectLoading = () => {
+    return {
+        type: type.CREATE_PROJECT_LOADING
+    }
+}
+
+export const createProjectFailure = ( error ) => {
+    return {
+        type: type.CREATE_PROJECT_FAILURE,
+        payload: { error }
+    }
+}
+
+export const createProjectSuccess = ( project ) => {
+    return {
+        type: type.CREATE_PROJECT_SUCCESS,
         payload: { project }
     }
 }
