@@ -29,6 +29,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import { connect } from 'react-redux'
 import { getProject as getProjectAction } from '../actions/projectActions'
+import { random } from 'node-forge';
 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -97,7 +98,25 @@ export const ProjectDetailPage = (props) => {
                             { title: 'Name', field: 'name'},
                             { title: 'Description', field: 'desc'}
                         ]}
-                        data={[{time: Date() , name: "Name", desc: "Description of row"}]}
+                        data={[
+                        {time: Date() , name: "test1", desc: "description", data: { name: "example", type: "whatever"}},
+                        {time: Date() , name: "test2", desc: "description"},
+                        {time: Date() , name: "test3", desc: "description"},
+                        {time: Date() , name: "test4", desc: "description"},
+                        {time: Date() , name: "test5", desc: "description"},
+                        {time: Date() , name: "test6", desc: "description"},
+                        {time: Date() , name: "test7", desc: "description"},
+                        {time: Date() , name: "test8", desc: "description"},
+                        {time: Date() , name: "test9", desc: "description"},
+                        {time: Date() , name: "test10", desc: "description"},
+                        {time: Date() , name: "test11", desc: "description"},
+                        {time: Date() , name: "test12", desc: "description"},
+                        {time: Date() , name: "test13", desc: "description"},
+                        {time: Date() , name: "test14", desc: "description"},
+                        {time: Date() , name: "test15", desc: "description"},
+                        {time: Date() , name: "test16", desc: "description"},
+                        {time: Date() , name: "test17", desc: "description"}
+                        ]}
                         options={
                             { search: false }
                         }
