@@ -1,5 +1,5 @@
 import React from 'react'
-import { Typography } from "@material-ui/core"
+import { Typography, Divider } from "@material-ui/core"
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 
@@ -14,10 +14,9 @@ export const DashboardPage = (props) => {
     return (
         <section className="dashboard">
             { renderRedirect() }
-            <Typography variant='h5' >DASHBOARD PAGE</Typography>
-            <Typography >
-                This is a great place to show information about all the user's projects.
-            </Typography>
+            <Typography variant='h5' align="left">Your Dashboard</Typography>
+            <br />
+            <Divider />
         </section>
     )
 }
