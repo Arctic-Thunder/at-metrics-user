@@ -24,6 +24,8 @@ import {
 } from '@material-ui/icons';
 
 import MaterialTable from 'material-table'
+import Button from '@material-ui/core/Button'
+import { makeStyles } from '@material-ui/core/styles'
 
 import { connect } from 'react-redux'
 import { getProject as getProjectAction } from '../actions/projectActions'
@@ -48,8 +50,19 @@ const tableIcons = {
     ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
     }
 
+    
+const useStyles = makeStyles(theme => ({
+    button: {
+      margin: theme.spacing(1),
+    },
+    input: {
+      display: 'none',
+    },
+  }));
+
 export const ProjectDetailPage = (props) => {
     const { isAuthenticated } = props
+    const classes = useStyles();
 
     useEffect( (myProps) => {
         if ( props.project === undefined ) {
@@ -103,6 +116,9 @@ export const ProjectDetailPage = (props) => {
                         onRowClick={(event, rowData, togglePanel) => togglePanel()}
                         icons={tableIcons}
                     />
+                    <Button variant="contained" className={classes.button}>
+                        Delete Project
+                    </Button>
                 </Grid>
             </Grid>
         </section>
