@@ -62,14 +62,10 @@ const useStyles = makeStyles(theme => ({
   }));
 
 export const ProjectDetailPage = (props) => {
-<<<<<<< HEAD
     const { isAuthenticated, project, project_id } = props
     const getProject = id => { props.getProject(id) }
-=======
-    const { isAuthenticated } = props
-    const classes = useStyles();
->>>>>>> eb4a6d906c17bacf1a464e053994dd8855b031e8
-
+    const classes = useStyles()
+    
     useEffect( () => {
         if ( project === undefined ) {
             getProject(project_id)
@@ -103,9 +99,6 @@ export const ProjectDetailPage = (props) => {
                             { title: 'Name', field: 'name'},
                             { title: 'Description', field: 'desc'}
                         ]}
-<<<<<<< HEAD
-                        data={[{time: Date() , name: "Name", desc: "Description of row", data: {type: "metrics", user: "me"}}]}
-=======
                         data={[
                         {time: Date() , name: "test1", desc: "description", data: { name: "example", type: "whatever"}},
                         {time: Date() , name: "test2", desc: "description"},
@@ -125,7 +118,6 @@ export const ProjectDetailPage = (props) => {
                         {time: Date() , name: "test16", desc: "description"},
                         {time: Date() , name: "test17", desc: "description"}
                         ]}
->>>>>>> eb4a6d906c17bacf1a464e053994dd8855b031e8
                         options={
                             { search: false }
                         }
