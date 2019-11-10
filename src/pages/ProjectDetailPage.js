@@ -24,9 +24,12 @@ import {
 } from '@material-ui/icons';
 
 import MaterialTable from 'material-table'
+import Button from '@material-ui/core/Button'
+import { makeStyles } from '@material-ui/core/styles'
 
 import { connect } from 'react-redux'
 import { getProject as getProjectAction } from '../actions/projectActions'
+import { random } from 'node-forge';
 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -48,9 +51,24 @@ const tableIcons = {
     ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
     }
 
+    
+const useStyles = makeStyles(theme => ({
+    button: {
+      margin: theme.spacing(1),
+    },
+    input: {
+      display: 'none',
+    },
+  }));
+
 export const ProjectDetailPage = (props) => {
+<<<<<<< HEAD
     const { isAuthenticated, project, project_id } = props
     const getProject = id => { props.getProject(id) }
+=======
+    const { isAuthenticated } = props
+    const classes = useStyles();
+>>>>>>> eb4a6d906c17bacf1a464e053994dd8855b031e8
 
     useEffect( () => {
         if ( project === undefined ) {
@@ -85,7 +103,29 @@ export const ProjectDetailPage = (props) => {
                             { title: 'Name', field: 'name'},
                             { title: 'Description', field: 'desc'}
                         ]}
+<<<<<<< HEAD
                         data={[{time: Date() , name: "Name", desc: "Description of row", data: {type: "metrics", user: "me"}}]}
+=======
+                        data={[
+                        {time: Date() , name: "test1", desc: "description", data: { name: "example", type: "whatever"}},
+                        {time: Date() , name: "test2", desc: "description"},
+                        {time: Date() , name: "test3", desc: "description"},
+                        {time: Date() , name: "test4", desc: "description"},
+                        {time: Date() , name: "test5", desc: "description"},
+                        {time: Date() , name: "test6", desc: "description"},
+                        {time: Date() , name: "test7", desc: "description"},
+                        {time: Date() , name: "test8", desc: "description"},
+                        {time: Date() , name: "test9", desc: "description"},
+                        {time: Date() , name: "test10", desc: "description"},
+                        {time: Date() , name: "test11", desc: "description"},
+                        {time: Date() , name: "test12", desc: "description"},
+                        {time: Date() , name: "test13", desc: "description"},
+                        {time: Date() , name: "test14", desc: "description"},
+                        {time: Date() , name: "test15", desc: "description"},
+                        {time: Date() , name: "test16", desc: "description"},
+                        {time: Date() , name: "test17", desc: "description"}
+                        ]}
+>>>>>>> eb4a6d906c17bacf1a464e053994dd8855b031e8
                         options={
                             { search: false }
                         }
@@ -104,6 +144,9 @@ export const ProjectDetailPage = (props) => {
                         onRowClick={(event, rowData, togglePanel) => togglePanel()}
                         icons={tableIcons}
                     />
+                    <Button variant="contained" className={classes.button}>
+                        Delete Project
+                    </Button>
                 </Grid>
             </Grid>
         </section>

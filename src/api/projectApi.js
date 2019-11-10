@@ -57,6 +57,24 @@ class ProjectApi {
         })
         .catch ( error => { return error })
     }
+
+    // Delete a project
+    static deleteProject ( token, id ) {
+        return fetch(`/projects/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${token}`
+            }
+        })
+        .then( response => response.json())
+        .then(data => {
+            return (
+                data
+            )
+        })
+        .catch ( error => { return error })
+    }
 }
 
 export default ProjectApi
