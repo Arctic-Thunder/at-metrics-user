@@ -24,3 +24,8 @@ export const project = {
     CREATE_PROJECT_SUCCESS: "CREATE_PROJECT_SUCCESS",
 }
 
+// Page Selection
+export const currentPage = {
+    PAGE_CHANGED: "PAGE_CHANGED",
+}
+

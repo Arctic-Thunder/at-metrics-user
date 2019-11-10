@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Typography } from "@material-ui/core"
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-
+import { setCurrentPage as setCurrentPageAction } from '../actions/pageChangeActions'
 export const DashboardPage = (props) => {
     const renderRedirect = () => {
         if(!props.isAuthenticated) {
@@ -10,6 +10,8 @@ export const DashboardPage = (props) => {
             return( <Redirect to="/login" /> )
         }
     }
+
+    props.changePage(0)
 
     return (
         <section className="dashboard">
@@ -30,4 +32,10 @@ const mapStateToProps = ( state ) =>
     }
 }
 
-export default connect(mapStateToProps)(DashboardPage)
+const mapDispatchToProps = dispatch => {
+    return {
+        changePage: index => dispatch(setCurrentPageAction(index))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardPage)

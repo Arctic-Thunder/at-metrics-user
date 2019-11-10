@@ -49,15 +49,16 @@ const tableIcons = {
     }
 
 export const ProjectDetailPage = (props) => {
-    const { isAuthenticated } = props
+    const { isAuthenticated, project, project_id } = props
+    const getProject = id => { props.getProject(id) }
 
-    useEffect( (myProps) => {
-        if ( props.project === undefined ) {
-            props.getProject(props.project_id)
+    useEffect( () => {
+        if ( project === undefined ) {
+            getProject(project_id)
         }
     }, [] )
 
-    const { name, description } = props.project !== undefined ? props.project : { name:"", description:"" }
+    const { name, description } = project !== undefined ? project : { name:"", description:"" }
 
     return (
         <section className="project-detail">
@@ -84,7 +85,7 @@ export const ProjectDetailPage = (props) => {
                             { title: 'Name', field: 'name'},
                             { title: 'Description', field: 'desc'}
                         ]}
-                        data={[{time: Date() , name: "Name", desc: "Description of row"}]}
+                        data={[{time: Date() , name: "Name", desc: "Description of row", data: {type: "metrics", user: "me"}}]}
                         options={
                             { search: false }
                         }

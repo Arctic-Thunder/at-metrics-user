@@ -43,7 +43,11 @@ class ProjectApi {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Token ${token}`
-            }
+            },
+            body: JSON.stringify({
+                name: name,
+                description: description
+            })
         })
         .then( response => response.json())
         .then(data => {

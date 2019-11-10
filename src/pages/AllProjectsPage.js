@@ -33,14 +33,34 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export const AllProjectsPage = (props) => {
-    const { isAuthenticated } = props
+    const { isAuthenticateds } = props
+    const getProjects = () => { props.getProjects() }
+    const addProject = (name, description) => { props.addProject(name, description)}
     const [open, setOpen] = useState(false)
+
+    const [projName, setProjName] = useState("")
+    const [projDesc, setProjDesc] = useState("")
+
     const classes = useStyles()
     
-    useEffect( (myProps) => {
-        props.getProjects()
+    useEffect( () => {
+        getProjects()
     }, [] )
+
     const projects = props.projects !== undefined ? props.projects : []
+
+    const handleChange = (event) => {
+        switch(event.target.id) {
+            case "name":
+                setProjName(event.target.value)
+            break
+            case "description":
+                setProjDesc(event.target.value)
+            break
+            default:
+                console.log(`Invalid id: ${event.target.id}`)
+        }
+    }
 
     const handleOpen = event => {
         setOpen(true)
@@ -51,6 +71,7 @@ export const AllProjectsPage = (props) => {
     }
 
     const handleSubmit = event => {
+        addProject(projName, projDesc)
         setOpen(false)
     }
 
@@ -86,7 +107,7 @@ export const AllProjectsPage = (props) => {
                         <Dialog
                             open={open}
                             onClose={handleClose}
-                            aria-labeledby="from-dialog-title"
+                            aria-labelledby="from-dialog-title"
                         >
                             <DialogTitle id='form-dialog-title'>New Project</DialogTitle>
                             <DialogContent>
@@ -96,6 +117,7 @@ export const AllProjectsPage = (props) => {
                                     id="name"
                                     label="Project Name"
                                     fullWidth
+                                    onChange={handleChange}
                                 />
                                 <TextField
                                     margin="dense"
@@ -103,11 +125,12 @@ export const AllProjectsPage = (props) => {
                                     label="Project Description"
                                     fullWidth
                                     multiline
+                                    onChange={handleChange}
                                 />
                             </DialogContent>
                             <DialogActions>
                                 <Button onClick={handleClose} color="primary">Cancel</Button>
-                                <Button onClick={handleSubmit} color="primary">Submit</Button>
+                                <Button onClick={handleSubmit} color="primary" disabled={projName === "" || projDesc === ""} >Submit</Button>
                             </DialogActions>
                         </Dialog>
 
@@ -138,7 +161,6 @@ export const AllProjectsPage = (props) => {
 
 const mapStateToProps = ( state, ownProps ) => {
     const { user, projects } = state
-    console.log(projects)
     return { 
         isAuthenticated: user.info.token !== undefined,
         projects: projects.data

@@ -1,15 +1,12 @@
 import React, { useEffect } from 'react'
 
 import {
-    Link as RouterLink,
     Route,
-    useRouteMatch,
     Switch,
     Redirect,
 } from 'react-router-dom'
 
 import { connect } from 'react-redux'
-import { getAllProjects as getAllProjectsAction } from '../actions/projectActions'
 
 import {
     makeStyles,
@@ -17,6 +14,7 @@ import {
 
 import ProjectDetailPage from './ProjectDetailPage'
 import AllProjectsPage from './AllProjectsPage'
+import { setCurrentPage as setCurrentPageAction } from '../actions/pageChangeActions'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -26,14 +24,15 @@ const useStyles = makeStyles(theme => ({
 
 export const ProjectsPageWrapper = (props) => {
     const { isAuthenticated } = props
-
     const classes = useStyles()
-    
+
     const renderRedirect = () => {
         if(!isAuthenticated) {
             return( <Redirect to="/login" /> )
         }
     }
+
+    props.changePage(1)
 
     return (
         <section className="projects">
@@ -59,4 +58,10 @@ const mapStateToProps = ( state ) =>
     }
 }
 
-export default connect(mapStateToProps)(ProjectsPageWrapper)
+const mapDispatchToProps = dispatch => {
+    return {
+        changePage: index => dispatch(setCurrentPageAction(index))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectsPageWrapper)

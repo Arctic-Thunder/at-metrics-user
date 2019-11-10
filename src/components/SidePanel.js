@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { 
     Link as RouterLink,
-    Redirect,
  } from 'react-router-dom'
 
 import PropTypes from 'prop-types'
@@ -22,6 +21,7 @@ import {
  } from '@material-ui/icons'
 
 import { connect } from 'react-redux'
+import { setCurrentPage as setCurrentPageAction } from '../actions/pageChangeActions'
 
 const drawerWidth = 240
 const useStyles = makeStyles(theme => ({
@@ -67,13 +67,12 @@ ListItemLink.propTypes = {
 const SidePanel = (props) => {
     const pages = ['Dashboard', 'Projects', 'API', 'About']
     const icons = [<DeveloperBoard />, <Assignment />, <Code />, <Info />]
-
-    const [selectedIndex, setSelectedIndex] = useState(0)
     
     const handleListItemClick = (event, index) => {
-        setSelectedIndex(index)
+        // props.setSelectedIndex(index)
     }
 
+    const selectedIndex = props.currentPage
     const classes = useStyles()
 
     return (
@@ -103,12 +102,12 @@ const SidePanel = (props) => {
 }
 
 // Link Redux user object to dialog
-const mapStateToProps = state => 
-{
+const mapStateToProps = state => {
     const { user } = state
     return {
         user: user.info,
-        isAuthenticated: user.info.token !== undefined
+        isAuthenticated: user.info.token !== undefined,
+        currentPage: state.currentPage.index
     }
 }
 

@@ -27,5 +27,8 @@ export default {
         ],
         loading: false,
         error: null,
-    }
+    },
+    currentPage: {
+        index: 0
+    },
 }
