@@ -3,6 +3,7 @@ import {
     Typography,
     Divider,
     Grid,
+    Fab
 } from '@material-ui/core'
 
 import {
@@ -30,6 +31,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 import { getProject as getProjectAction } from '../actions/projectActions'
 import { random } from 'node-forge';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline'
 
 const tableIcons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -89,6 +91,18 @@ export const ProjectDetailPage = (props) => {
                     </Typography>
                 </Grid>
                 <Grid item>
+                    <Fab
+                        variant="extended"
+                        aria-label="delete"
+                        size="medium"
+                        color="inherit"
+                        className={classes.fab}
+                    >
+                        <DeleteOutlineIcon />
+                        Delete Project
+                    </Fab>
+                </Grid>
+                <Grid item>
                     <Divider />
                 </Grid>
                 <Grid item>
@@ -136,9 +150,6 @@ export const ProjectDetailPage = (props) => {
                         onRowClick={(event, rowData, togglePanel) => togglePanel()}
                         icons={tableIcons}
                     />
-                    <Button variant="contained" className={classes.button}>
-                        Delete Project
-                    </Button>
                 </Grid>
             </Grid>
         </section>
