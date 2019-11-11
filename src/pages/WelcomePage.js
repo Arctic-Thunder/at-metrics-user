@@ -1,5 +1,5 @@
 import React from 'react'
-import { Typography } from "@material-ui/core"
+import { Typography, ListItemIcon } from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -61,21 +61,35 @@ const useStyles = makeStyles(theme => ({
                         <div className={classes.demo}>
                             <List>
                                 <ListItem>
+                                <ListItemIcon>
                                 <CheckCircleOutline />
+                                </ListItemIcon>
                                 <ListItemText
                                     primary="Add, edit, and delete the projects you want metrics for."
                                 />
                                 </ListItem>
                                 <ListItem>
+                                <ListItemIcon>                                
                                 <CheckCircleOutline />
+                                </ListItemIcon>
                                 <ListItemText
                                     primary="Edit and delete your metrics."
                                 />
                                 </ListItem>
                                 <ListItem>
+                                <ListItemIcon>
                                 <CheckCircleOutline />
+                                </ListItemIcon>
                                 <ListItemText
                                     primary="View your metrics based upon the projects you have."
+                                />
+                                </ListItem>
+                                <ListItem>
+                                <ListItemIcon>
+                                <CheckCircleOutline />
+                                </ListItemIcon>
+                                <ListItemText
+                                    primary="View the sample API."
                                 />
                                 </ListItem>
                             </List>
