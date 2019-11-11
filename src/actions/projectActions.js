@@ -108,3 +108,36 @@ export const createProjectSuccess = ( project ) => {
         payload: { project }
     }
 }
+
+// Delete a project
+export const deleteProject = ( id ) => {
+    return ( dispatch, getState ) => {
+        dispatch(deleteProjectLoading())
+
+        projectApi.deleteProject( getToken(getState), id )
+        .then( project => {
+            dispatch(deleteProjectSuccess(project))
+        })
+        .catch( error => {
+            dispatch(deleteProjectFailure(error))
+            throw(error)
+        })
+    }
+}
+
+export const deleteProjectLoading = () => ({
+    type: type.DELETE_PROJECT_LOADING
+})
+
+export const deleteProjectFailure = ( error ) => ({
+    type: type.DELETE_PROJECT_FAILURE,
+    payload: { error }
+})
+
+export const deleteProjectSuccess = ( project ) => ({
+    type: type.DELETE_PROJECT_SUCCESS,
+    payload: { project }
+})
+
+
+

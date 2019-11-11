@@ -1,8 +1,9 @@
 import React from 'react'
 import { Typography, ListItemIcon } from "@material-ui/core"
 import { makeStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux'
+import { setCurrentPage as setCurrentPageAction } from '../actions/pageChangeActions'
 import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
@@ -34,9 +35,11 @@ const useStyles = makeStyles(theme => ({
     },
   }));
   
-  export default function MediaCard() {
-    const classes = useStyles();
-  
+  export function WelcomePage(props) {
+    const classes = useStyles();    
+
+    props.changePage(3)
+
     return (
         <Grid
             container
@@ -101,3 +104,11 @@ const useStyles = makeStyles(theme => ({
       </Grid>
     );
   }
+
+const mapDispatchToProps = dispatch => {
+    return {
+        changePage: index => dispatch(setCurrentPageAction(index))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(WelcomePage)

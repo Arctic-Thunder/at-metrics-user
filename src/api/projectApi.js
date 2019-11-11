@@ -1,3 +1,5 @@
+import Project from '../models'
+
 class ProjectApi {
     // Gets all projects
     static getAllProjects( token ) {
@@ -60,7 +62,7 @@ class ProjectApi {
 
     // Delete a project
     static deleteProject ( token, id ) {
-        return fetch(`/projects/${id}`, {
+        return fetch(`/projects/${id}/`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

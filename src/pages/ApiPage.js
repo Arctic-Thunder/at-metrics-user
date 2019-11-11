@@ -3,7 +3,6 @@ import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { setCurrentPage as setCurrentPageAction } from '../actions/pageChangeActions'
 import {
-    Typography,
     Container
  } from "@material-ui/core"
 
