@@ -7,21 +7,6 @@ import { RadialChart, VerticalGridLines, XAxis, YAxis, XYPlot, HorizontalGridLin
 import DiscreteColorLegend from 'react-vis/dist/legends/discrete-color-legend';
 
 export const DashboardPage = (props) => {
-<<<<<<< HEAD
-    const data = [
-        {x: 0, y: 8},
-        {x: 1, y: 5},
-        {x: 2, y: 4},
-        {x: 3, y: 9},
-        {x: 4, y: 1},
-        {x: 5, y: 7},
-        {x: 6, y: 6},
-        {x: 7, y: 3},
-        {x: 8, y: 2},
-        {x: 9, y: 0}
-        ];
-
-=======
     const data = [{x: 0, y: 8},{x: 1, y: 5},{x: 2, y: 4}]
     const items = [
         { title: 'Project 1', color: '#f9c116', stroke: '#fff', strokeWidth: '2' },
@@ -30,7 +15,6 @@ export const DashboardPage = (props) => {
         { title: 'Project 4', color: '#4c85ff', stroke: '#fff', strokeWidth: '2' },
         { title: 'Project 5', color: '#f99416', stroke: '#fff', strokeWidth: '2' }
     ];
->>>>>>> fbf04498e76a9f7c32c2c91af50f8106afd225da
     const renderRedirect = () => {
         if(!props.isAuthenticated) {
             console.log("Redirect Loaded")
