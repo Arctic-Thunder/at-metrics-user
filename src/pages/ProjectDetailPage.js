@@ -20,12 +20,10 @@ import {
 } from '@material-ui/icons';
 
 import MaterialTable from 'material-table';
-import Button from '@material-ui/core/Button';
 import {makeStyles} from '@material-ui/core/styles';
 
 import {connect} from 'react-redux';
 import {getProject as getProjectAction} from '../actions/projectActions';
-import {random} from 'node-forge';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 const tableIcons = {
@@ -62,7 +60,7 @@ const useStyles = makeStyles (theme => ({
 }));
 
 export const ProjectDetailPage = props => {
-  const {isAuthenticated, project, project_id} = props;
+  const {project, project_id} = props;
   const getProject = id => {
     props.getProject (id);
   };
@@ -157,10 +155,9 @@ export const ProjectDetailPage = props => {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  const {user, projects} = state;
+  const {projects} = state;
 
   return {
-    isAuthenticated: user.info.token !== undefined,
     project: projects.data.find (element => {
       return element.id == ownProps.project_id;
     }),

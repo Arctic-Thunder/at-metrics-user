@@ -33,7 +33,6 @@ const useStyles = makeStyles (theme => ({
 }));
 
 export const AllProjectsPage = props => {
-  const {isAuthenticateds} = props;
   const getProjects = () => {
     props.getProjects ();
   };
@@ -155,7 +154,7 @@ export const AllProjectsPage = props => {
           justify="space-between"
         >
           {projects.map ((project, index) => (
-            <Grid item>
+            <Grid item key={index}>
               <ProjectCard project={project} />
             </Grid>
           ))}
@@ -165,10 +164,9 @@ export const AllProjectsPage = props => {
   );
 };
 
-const mapStateToProps = (state, ownProps) => {
-  const {user, projects} = state;
+const mapStateToProps = (state) => {
+  const {projects} = state;
   return {
-    isAuthenticated: user.info.token !== undefined,
     projects: projects.data,
   };
 };

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 
 import {Route, Switch, Redirect} from 'react-router-dom';
 
@@ -31,7 +31,7 @@ export const ProjectsPageWrapper = props => {
   props.changePage (1);
 
   return (
-    <section className="projects">
+    <section className={classes.root}>
       {renderRedirect ()}
       <Switch>
         <Route exact path="/projects">

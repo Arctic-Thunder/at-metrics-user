@@ -39,8 +39,8 @@ export function ApiPage (props) {
   return (
     <Container className="api">
       {renderRedirect ()}
-      {apidata.map (data => (
-        <APIPanel name={data.name} description={data.description} />
+      {apidata.map ((data, index) => (
+        <APIPanel name={data.name} description={data.description} key={index} />
       ))}
     </Container>
   );

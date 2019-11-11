@@ -7,7 +7,6 @@ import {
 } from '../actions/pageChangeActions';
 import {
   RadialChart,
-  VerticalGridLines,
   XAxis,
   YAxis,
   XYPlot,
