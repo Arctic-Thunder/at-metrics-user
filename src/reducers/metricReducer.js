@@ -2,7 +2,7 @@ import {metric as types} from '../actions/actionTypes';
 import initialState from './initialState';
 
 const removeMetric = (arr, target) => {
-    const index = arr.findIndex (project => project.equals (target));
+    const index = arr.findIndex (metric => metric.equals (target));
     return arr.splice (index, 1);
   };
 
