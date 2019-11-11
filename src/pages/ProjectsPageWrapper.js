@@ -1,67 +1,66 @@
-import React, { useEffect } from 'react'
+import React, {useEffect} from 'react';
 
+import {Route, Switch, Redirect} from 'react-router-dom';
+
+import {connect} from 'react-redux';
+
+import {makeStyles} from '@material-ui/core';
+
+import ProjectDetailPage from './ProjectDetailPage';
+import AllProjectsPage from './AllProjectsPage';
 import {
-    Route,
-    Switch,
-    Redirect,
-} from 'react-router-dom'
+  setCurrentPage as setCurrentPageAction,
+} from '../actions/pageChangeActions';
 
-import { connect } from 'react-redux'
+const useStyles = makeStyles (theme => ({
+  root: {
+    flexGrow: 1,
+  },
+}));
 
-import {
-    makeStyles,
-} from '@material-ui/core'
+export const ProjectsPageWrapper = props => {
+  const {isAuthenticated} = props;
+  const classes = useStyles ();
 
-import ProjectDetailPage from './ProjectDetailPage'
-import AllProjectsPage from './AllProjectsPage'
-import { setCurrentPage as setCurrentPageAction } from '../actions/pageChangeActions'
-
-const useStyles = makeStyles(theme => ({
-    root: {
-        flexGrow: 1,
-    },
-}))
-
-export const ProjectsPageWrapper = (props) => {
-    const { isAuthenticated } = props
-    const classes = useStyles()
-
-    const renderRedirect = () => {
-        if(!isAuthenticated) {
-            return( <Redirect to="/login" /> )
-        }
+  const renderRedirect = () => {
+    if (!isAuthenticated) {
+      return <Redirect to="/login" />;
     }
+  };
 
-    props.changePage(1)
+  props.changePage (1);
 
-    return (
-        <section className="projects">
-            {renderRedirect()}
-            <Switch>
-                <Route exact path="/projects">
-                    <AllProjectsPage />
-                </Route>
-                <Route path="/projects/:project_id" children={({ match }) => (
-                    <ProjectDetailPage project_id={match.params.project_id} />
-                )}
-                />
-            </Switch>
-        </section>
-    )
-}
+  return (
+    <section className="projects">
+      {renderRedirect ()}
+      <Switch>
+        <Route exact path="/projects">
+          <AllProjectsPage />
+        </Route>
+        <Route
+          path="/projects/:project_id"
+          children={({match}) => (
+            <ProjectDetailPage project_id={match.params.project_id} />
+          )}
+        />
+      </Switch>
+    </section>
+  );
+};
 
-const mapStateToProps = ( state ) => 
-{
-    const { user } = state
-    return { 
-        isAuthenticated: user.info.token !== undefined,
-    }
-}
+const mapStateToProps = state => {
+  const {user} = state;
+  return {
+    isAuthenticated: user.info.token !== undefined,
+  };
+};
 
 const mapDispatchToProps = dispatch => {
-    return {
-        changePage: index => dispatch(setCurrentPageAction(index))
-    }
-}
+  return {
+    changePage: index => dispatch (setCurrentPageAction (index)),
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectsPageWrapper)
+export default connect (mapStateToProps, mapDispatchToProps) (
+  ProjectsPageWrapper
+);

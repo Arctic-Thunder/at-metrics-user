@@ -1,16 +1,14 @@
 import React from 'react';
 import './App.css';
-import MainPage from './pages/Main'
-import {
-  HashRouter,
- } from 'react-router-dom'
+import MainPage from './pages/Main';
+import {HashRouter} from 'react-router-dom';
 
-function App() {
+function App () {
   return (
     <div className="App">
       <HashRouter>
-        <MainPage/>
-      </HashRouter>      
+        <MainPage />
+      </HashRouter>
     </div>
   );
 }
