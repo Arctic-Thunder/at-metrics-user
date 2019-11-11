@@ -25,6 +25,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import {connect} from 'react-redux';
 import {getProject as getProjectAction} from '../actions/projectActions';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import EditIcon from '@material-ui/icons/Edit'
 
 const tableIcons = {
   Add: forwardRef ((props, ref) => <AddBox {...props} ref={ref} />),
@@ -90,11 +91,21 @@ export const ProjectDetailPage = props => {
             variant="extended"
             aria-label="delete"
             size="medium"
+            color="primary"
+            className={classes.fab}
+          >
+            <EditIcon />
+            Edit
+          </Fab>
+          <Fab
+            variant="extended"
+            aria-label="delete"
+            size="medium"
             color="inherit"
             className={classes.fab}
           >
             <DeleteOutlineIcon />
-            Delete Project
+            Delete
           </Fab>
         </Grid>
         <Grid item>
