@@ -3,7 +3,7 @@ import { Typography, Divider, Grid } from "@material-ui/core"
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { setCurrentPage as setCurrentPageAction } from '../actions/pageChangeActions'
-import { GradientDefs, RadialChart, VerticalGridLines, XAxis, YAxis, XYPlot, HorizontalGridLines, LineSeries } from 'react-vis';
+import { RadialChart, VerticalGridLines, XAxis, YAxis, XYPlot, HorizontalGridLines, LineSeries } from 'react-vis';
 
 export const DashboardPage = (props) => {
     const data = [{x: 0, y: 8},{x: 1, y: 5},{x: 2, y: 4}]
