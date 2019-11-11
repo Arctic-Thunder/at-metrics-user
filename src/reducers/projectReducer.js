@@ -50,7 +50,7 @@ export default function projectReducer (state = initialState.projects, action) {
         error: null,
         data: [...state.data, action.payload.project],
       });
-    // Create New Project
+    // Delete Project
     case types.DELETE_PROJECT_LOADING:
       return Object.assign ({}, state, {loading: true});
     case types.DELETE_PROJECT_FAILURE:
