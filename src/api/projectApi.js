@@ -1,3 +1,5 @@
+import Project from '../models'
+
 class ProjectApi {
     // Gets all projects
     static getAllProjects( token ) {

@@ -1,3 +1,5 @@
+import User from '../models'
+
 class UserApi {
     static logInUser( username, password ) {
         return fetch('login/', {
@@ -13,7 +15,7 @@ class UserApi {
         .then(response => response.json()) 
         .then(data => {
             return (
-                { username: username, token: data.token }
+                User(data.username, "", data.token)
             )
         })
         .catch(error => { return error })
