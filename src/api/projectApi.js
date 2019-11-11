@@ -1,5 +1,3 @@
-import Project from '../models';
-
 class ProjectApi {
   // Gets all projects
   static getAllProjects (token) {
@@ -21,7 +19,6 @@ class ProjectApi {
 
   // Gets a specific project
   static getProject (token, id) {
-    console.log (`Fetching: projects/${id}/`);
     return fetch (`/projects/${id}/`, {
       method: 'GET',
       headers: {

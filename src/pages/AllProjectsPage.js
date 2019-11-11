@@ -30,6 +30,9 @@ const useStyles = makeStyles (theme => ({
   title: {
     fontSize: 24,
   },
+  fab: {
+    margin: theme.spacing(1),
+  },
 }));
 
 export const AllProjectsPage = props => {

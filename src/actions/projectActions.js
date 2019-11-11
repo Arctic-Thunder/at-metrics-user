@@ -11,7 +11,7 @@ export const getAllProjects = () => {
     dispatch (getAllProjectsLoading ());
 
     projectApi
-      .getAllProjects (getState ().user.info.token)
+      .getAllProjects (getToken(getState))
       .then (projects => {
         dispatch (getAllProjectsSuccess (projects));
       })

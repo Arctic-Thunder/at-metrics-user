@@ -25,7 +25,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import {connect} from 'react-redux';
 import {getProject as getProjectAction} from '../actions/projectActions';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import EditIcon from '@material-ui/icons/Edit'
+import EditIcon from '@material-ui/icons/Edit';
 
 const tableIcons = {
   Add: forwardRef ((props, ref) => <AddBox {...props} ref={ref} />),
@@ -58,6 +58,9 @@ const useStyles = makeStyles (theme => ({
   input: {
     display: 'none',
   },
+  fab: {
+    margin: theme.spacing(1),
+  },
 }));
 
 export const ProjectDetailPage = props => {
@@ -80,33 +83,41 @@ export const ProjectDetailPage = props => {
   return (
     <section className="project-detail">
       <Grid container spacing={4} direction="column" justify="flex-start">
-        <Grid item>
-          <Typography variant="h4">{name}</Typography>
-          <Typography variant="body1">
-            {description}
-          </Typography>
-        </Grid>
-        <Grid item>
-          <Fab
-            variant="extended"
-            aria-label="delete"
-            size="medium"
-            color="primary"
-            className={classes.fab}
-          >
-            <EditIcon />
-            Edit
-          </Fab>
-          <Fab
-            variant="extended"
-            aria-label="delete"
-            size="medium"
-            color="inherit"
-            className={classes.fab}
-          >
-            <DeleteOutlineIcon />
-            Delete
-          </Fab>
+        <Grid
+          container
+          item
+          direction="row"
+          justify="space-between"
+          alignItems="center"
+        >
+          <Grid item>
+            <Typography variant="h4">{name}</Typography>
+            <Typography variant="body1">
+              {description}
+            </Typography> 
+          </Grid>
+          <Grid item>
+            <Fab
+              variant="extended"
+              aria-label="delete"
+              size="medium"
+              color="primary"
+              className={classes.fab}
+            >
+              <EditIcon />
+              Edit
+            </Fab>
+            <Fab
+              variant="extended"
+              aria-label="delete"
+              size="medium"
+              color="inherit"
+              className={classes.fab}
+            >
+              <DeleteOutlineIcon />
+              Delete
+            </Fab>
+          </Grid>
         </Grid>
         <Grid item>
           <Divider />
