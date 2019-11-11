@@ -6,7 +6,7 @@ const removeMetric = (arr, target) => {
     return arr.splice (index, 1);
   };
 
-export default function projectReducer (state = initialState.projects, action) {
+export default function metricReducer (state = initialState.metrics, action) {
     switch (action.type) {
       // Get all metrics
       case types.GET_ALL_METRICS_LOADING:
