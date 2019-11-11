@@ -61,6 +61,7 @@ export const DashboardPage = (props) => {
                             height={300}
                             />
                     </Grid>
+
                     <Grid item xs="3">
                         <DiscreteColorLegend
                             height={300}
@@ -72,7 +73,6 @@ export const DashboardPage = (props) => {
                     <Grid item xs="6">
                         <Typography variant="h6" align="left">Metrics Collected</Typography>
                         <XYPlot height={300} width={400}>
-                            <VerticalGridLines />
                             <HorizontalGridLines />
                             <XAxis />
                             <YAxis />
