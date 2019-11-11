@@ -1,6 +1,5 @@
 import React from 'react'
 import {
-    Typography,
     Container
  } from "@material-ui/core"
 

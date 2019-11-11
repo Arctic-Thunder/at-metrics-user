@@ -18,6 +18,7 @@ export const DashboardPage = (props) => {
         {x: 8, y: 2},
         {x: 9, y: 0}
         ];
+
     const renderRedirect = () => {
         if(!props.isAuthenticated) {
             console.log("Redirect Loaded")
