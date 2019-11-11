@@ -11,11 +11,11 @@ class User {
         this.token = token
     }
 
-    compareTo = a => {
+    static compareTo = a => {
         return this.token.compareTo(a.token)
     }
 
-    equals = a => {
+    static equals = a => {
         return this.token === a.token
     }
 }

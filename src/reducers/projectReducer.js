@@ -1,8 +1,8 @@
 import { project as types } from '../actions/actionTypes'
 import initialState from './initialState'
 
-const removeProject = (arr) => {
-    const index = arr.findIndex(project => project.equals(action.payload.project))
+const removeProject = (arr, target) => {
+    const index = arr.findIndex(project => project.equals(target))
     return arr.splice(index, 1)
 }
 
@@ -38,7 +38,7 @@ export default function projectReducer(state = initialState.projects, action) {
         case types.DELETE_PROJECT_FAILURE:
             return Object.assign({}, state, { loading: false, error: action.payload.error })
         case types.DELETE_PROJECT_SUCCESS:
-            return Object.assign({}, state, { loading: false, error: null, data: removeProject([...state]) })
+            return Object.assign({}, state, { loading: false, error: null, data: removeProject([...state], action.payload.project) })
         default:
             return state
     }
