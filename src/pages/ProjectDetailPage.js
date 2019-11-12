@@ -1,5 +1,5 @@
-import React, {forwardRef, useEffect} from 'react';
-import {Typography, Divider, Grid, Fab} from '@material-ui/core';
+import React, {forwardRef, useEffect, useState} from 'react';
+import {Typography, Divider, Grid, Fab, Grow} from '@material-ui/core';
 
 import {
   AddBox,
@@ -8,24 +8,25 @@ import {
   ChevronLeft,
   ChevronRight,
   Clear,
+  Delete,
   DeleteOutline,
   Edit,
   FilterList,
   FirstPage,
   LastPage,
   Remove,
+  Save,
   SaveAlt,
   Search,
   ViewColumn,
 } from '@material-ui/icons';
 
 import MaterialTable from 'material-table';
-import {makeStyles} from '@material-ui/core/styles';
+import {makeStyles, useTheme} from '@material-ui/core/styles';
+import { red } from '@material-ui/core/colors'
 
 import {connect} from 'react-redux';
 import {getProject as getProjectAction} from '../actions/projectActions';
-import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import EditIcon from '@material-ui/icons/Edit';
 
 const tableIcons = {
   Add: forwardRef ((props, ref) => <AddBox {...props} ref={ref} />),
@@ -59,7 +60,7 @@ const useStyles = makeStyles (theme => ({
     display: 'none',
   },
   fab: {
-    margin: theme.spacing(1),
+    margin: theme.spacing (1),
   },
 }));
 
@@ -69,6 +70,7 @@ export const ProjectDetailPage = props => {
     props.getProject (id);
   };
   const classes = useStyles ();
+  const theme = useTheme ();
 
   useEffect (() => {
     if (project === undefined) {
@@ -79,6 +81,43 @@ export const ProjectDetailPage = props => {
   const {name, description} = project !== undefined
     ? project
     : {name: '', description: ''};
+
+  const [editOpen, setEditOpen] = useState (false);
+
+  const transitionDuration = {
+    enter: theme.transitions.duration.enteringScreen,
+    exit: theme.transitions.duration.leavingScreen,
+  };
+
+  const handleEditPress = () => {
+    setEditOpen(!editOpen)
+  }
+
+  const fabs = {
+    editBar: [
+      {
+        color: 'primary',
+        className: classes.fab,
+        icon: <Edit />,
+        label: "Edit",
+        initial: true,
+        onClick: handleEditPress
+      },
+      {
+        className: classes.fab,
+        icon: <Save />,
+        label: 'Save',
+        initial: false,
+      },
+      {
+        color: red[500],
+        className: classes.fab,
+        icon: <Delete />,
+        label: 'Delete',
+        initial: false,
+      },
+    ],
+  };
 
   return (
     <section className="project-detail">
@@ -94,29 +133,29 @@ export const ProjectDetailPage = props => {
             <Typography variant="h4">{name}</Typography>
             <Typography variant="body1">
               {description}
-            </Typography> 
+            </Typography>
           </Grid>
           <Grid item>
-            <Fab
-              variant="extended"
-              aria-label="delete"
-              size="medium"
-              color="primary"
-              className={classes.fab}
-            >
-              <EditIcon />
-              Edit
-            </Fab>
-            <Fab
-              variant="extended"
-              aria-label="delete"
-              size="medium"
-              color="inherit"
-              className={classes.fab}
-            >
-              <DeleteOutlineIcon />
-              Delete
-            </Fab>
+            {fabs.editBar.map ((fab, index) => (
+              <Grow
+                key={fab.color}
+                in={fab.initial || editOpen}
+                timeout={transitionDuration}
+                unmountOnExit
+              >
+                <Fab
+                  aria-label={fab.label}
+                  id={fab.label.toLowerCase()}
+                  className={fab.className}
+                  style={{
+                    backgroundColor: fab.color
+                  }}
+                  onClick={fab.onClick}
+                >
+                  {fab.icon}
+                </Fab>
+              </Grow>
+            ))}
           </Grid>
         </Grid>
         <Grid item>
