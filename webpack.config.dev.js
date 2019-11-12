@@ -3,9 +3,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 var webpack = require('webpack');
 
 module.exports = env => {
-    console.log(`api_url env is: ${env.API_HOST}`)
-
-    const mode = env.mode
+    const mode = env.NODE_ENV !== undefined ? env.NODE_ENV : 'development'
+    
     return {
             mode,
             entry: "./src/index.js",
