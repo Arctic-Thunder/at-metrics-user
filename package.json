@@ -34,7 +34,7 @@
     "url-loader": "^2.2.0"
   },
   "scripts": {
-    "dev": "webpack-dev-server --env.API_HOST=https://at-metrics-stage.herokuapp.com/api --development --config webpack.config.dev.js",
+    "dev": "webpack-dev-server --env.API_HOST=https://at-metrics-api-stage.herokuapp.com/api --development --config webpack.config.dev.js",
     "start": "serve -s build",
     "build": "webpack --config webpack.config.prod.js --mode production",
     "test": "react-scripts test --env=jsdom",

@@ -2,10 +2,10 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 var webpack = require('webpack');
 
-module.exports = ({ mode } = { mode: "production" }) => {
+module.exports = ( env => {
     console.log(`mode is: ${mode}`);
-    console.log(`mode env is: ${process.env.NODE_ENV}`)
-    console.log(`api_url env is: ${process.env.API_URL}`)
+    console.log(`mode env is: ${env.NODE_ENV}`)
+    console.log(`api_url env is: ${env.API_HOST}`)
 
     return {
             mode,
@@ -35,8 +35,8 @@ module.exports = ({ mode } = { mode: "production" }) => {
                 }),
                 new webpack.DefinePlugin({ 
                     'process.env': {
-                        'NODE_ENV': JSON.stringify(mode),
-                        'API_HOST': JSON.stringify('https://at-metrics-stage.herokuapp.com/api')
+                        'NODE_ENV': JSON.stringify('production'),
+                        'API_HOST': JSON.stringify(env.API_HOST)
                     }
                 }),
             ]
