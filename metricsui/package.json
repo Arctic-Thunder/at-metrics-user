@@ -34,5 +34,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://arcticthunder.azurewebsites.net/api"
+  // "proxy": "https://arcticthunder.azurewebsites.net/api"
 }
