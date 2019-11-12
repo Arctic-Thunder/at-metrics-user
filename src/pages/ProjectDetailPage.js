@@ -23,7 +23,7 @@ import {
 
 import MaterialTable from 'material-table';
 import {makeStyles, useTheme} from '@material-ui/core/styles';
-import { red } from '@material-ui/core/colors'
+import { red, green } from '@material-ui/core/colors'
 
 import {connect} from 'react-redux';
 import {getProject as getProjectAction} from '../actions/projectActions';
@@ -83,6 +83,7 @@ export const ProjectDetailPage = props => {
     : {name: '', description: ''};
 
   const [editOpen, setEditOpen] = useState (false);
+  const [saveNeeded, setSaveNeeded] = useState (false);
 
   const transitionDuration = {
     enter: theme.transitions.duration.enteringScreen,
@@ -93,21 +94,19 @@ export const ProjectDetailPage = props => {
     setEditOpen(!editOpen)
   }
 
+  const handleSavePress = () => {
+    setSaveNeeded(!saveNeeded)
+  }
+
   const fabs = {
     editBar: [
-      {
-        color: 'primary',
-        className: classes.fab,
-        icon: <Edit />,
-        label: "Edit",
-        initial: true,
-        onClick: handleEditPress
-      },
       {
         className: classes.fab,
         icon: <Save />,
         label: 'Save',
         initial: false,
+        color: saveNeeded ? green[500] : null,
+        onClick: handleSavePress,
       },
       {
         color: red[500],
@@ -115,6 +114,14 @@ export const ProjectDetailPage = props => {
         icon: <Delete />,
         label: 'Delete',
         initial: false,
+      },
+      {
+        color: 'primary',
+        className: classes.fab,
+        icon: <Edit />,
+        label: "Edit",
+        initial: true,
+        onClick: handleEditPress
       },
     ],
   };
