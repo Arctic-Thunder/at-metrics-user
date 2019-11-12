@@ -103,7 +103,6 @@ export const AllProjectsPage = props => {
               onClick={handleOpen}
             >
               <AddIcon />
-              New Project
             </Fab>
 
             <Dialog
