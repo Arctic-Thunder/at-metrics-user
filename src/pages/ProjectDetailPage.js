@@ -181,8 +181,8 @@ export const ProjectDetailPage = props => {
       console.log("Can't Edit")
       return (
         <div>
-          <Typography variant='h4'>{name}</Typography>
-          <Typography variant='body1'>{description}</Typography>
+          <Typography variant='h4' align="left">{name}</Typography>
+          <Typography variant='body1' align="left">{description}</Typography>
         </div>
       )
     }
