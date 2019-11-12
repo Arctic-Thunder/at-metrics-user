@@ -23,8 +23,7 @@ const useStyles = makeStyles (theme => ({
     height: 250,
   },
   root: {
-    flexGrow: 1,
-    maxWidth: 752,
+    
   },
   demo: {
     backgroundColor: theme.palette.background.paper,
@@ -32,16 +31,15 @@ const useStyles = makeStyles (theme => ({
   title: {
     margin: theme.spacing (4, 0, 2),
   },
-  icon: {
-    
-  }
 }));
 
 export function WelcomePage (props) {
+  const isAuthenticated = props.isAuthenticated;
   const classes = useStyles ();
 
   props.changePage (3);
 
+  
   return (
     <Grid
       container
@@ -49,7 +47,7 @@ export function WelcomePage (props) {
       direction="column"
       alignItems="center"
       justify="center"
-      style={{minHeight: '100vh'}}
+      style={{minHeight: '100vh', marginLeft: isAuthenticated?0:-120}}
     >
       <Grid item>
         <Card className={classes.card}>
@@ -99,10 +97,20 @@ export function WelcomePage (props) {
   );
 }
 
+
+
+
+const mapStateToProps = state => {
+  const {user} = state;
+  return {
+    isAuthenticated: user.info.token !== undefined,
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     changePage: index => dispatch (setCurrentPageAction (index)),
   };
 };
 
-export default connect (null, mapDispatchToProps) (WelcomePage);
+export default connect (mapStateToProps, mapDispatchToProps) (WelcomePage);
