@@ -5,10 +5,10 @@ class UserApi {
             body: JSON.stringify({
               username: username,
               password: password
-            }),
-            headers: {
-              'Content-Type': 'application/json'
-            }
+            })
+            // headers: {
+            //   'Content-Type': 'application/json'
+            // }
         })
         .then(response => response.json()) 
         .then(data => {
