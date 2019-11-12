@@ -1,9 +1,7 @@
-import Metric from '../models';
-
 class MetricApi {
     //Get all metrics for project
     static getAllMetrics (token, id) {
-        return fetch (`/projects/${id}/metrics`, {
+        return fetch (`${process.env.API_URL}/projects/${id}/metrics`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -21,7 +19,7 @@ class MetricApi {
 
       // Get specific metric
       static getMetric (token, pid, mid) {
-        return fetch (`/projects/${pid}/metrics/${mid}`, {
+        return fetch (`${process.env.API_URL}/projects/${pid}/metrics/${mid}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -39,7 +37,7 @@ class MetricApi {
 
       // Delete specific metric
       static deleteMetric (token, pid, mid) {
-        return fetch (`/projects/${pid}/metrics/${mid}`, {
+        return fetch (`${process.env.API_URL}/projects/${pid}/metrics/${mid}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',

@@ -1,6 +1,6 @@
 class UserApi {
     static logInUser( username, password ) {
-        return fetch('login/', {
+        return fetch(`${process.env.API_URL}/login/`, {
             method: 'POST',
             body: JSON.stringify({
               username: username,

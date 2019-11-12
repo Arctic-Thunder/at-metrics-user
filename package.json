@@ -30,9 +30,9 @@
     "serve": "^11.2.0"
   },
   "scripts": {
-    "dev": "react-scripts start",
+    "dev": "webpack --env.API_URL=https://at-metrics-stage.herokuapp.com/api --config webpack.config.dev.js",
     "start": "serve -s build",
-    "build": "react-scripts build",
+    "build": "webpack --config webpack.config.build.js",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "heroku-postbuild": "npm run build"
@@ -52,8 +52,9 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://at-metrics-stage.herokuapp.com/api",
   "devDependencies": {
-    "eslint-plugin-react-hooks": "^2.2.0"
+    "eslint-plugin-react-hooks": "^2.2.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
   }
 }
