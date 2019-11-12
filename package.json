@@ -10,6 +10,7 @@
   "dependencies": {
     "@material-ui/core": "^4.5.1",
     "@material-ui/icons": "^4.5.1",
+    "http-proxy-middleware": "^0.20.0",
     "material-table": "^1.53.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
@@ -42,7 +43,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://at-metrics-api-stage.herokuapp.com/api/",
+  // "proxy": "https://at-metrics-api-stage.herokuapp.com/api/",
   "devDependencies": {
     "eslint-plugin-react-hooks": "^2.2.0"
   }
