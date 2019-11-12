@@ -30,7 +30,6 @@ import {connect} from 'react-redux';
 import {getProject as getProjectAction} from '../actions/projectActions';
 
 import ConfirmDeleteDialog from '../components/ConfirmDeleteDialog'
-import { set } from 'date-fns';
 
 const tableIcons = {
   Add: forwardRef ((props, ref) => <AddBox {...props} ref={ref} />),
@@ -200,7 +199,7 @@ export const ProjectDetailPage = props => {
           alignItems="center"
         >
           <Grid item>
-            {renderEditableText}
+            {renderEditableText()}
           </Grid>
           <Grid item>
             {fabs.editBar.map ((fab, index) => (
