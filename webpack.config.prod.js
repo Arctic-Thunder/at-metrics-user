@@ -2,10 +2,12 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 var webpack = require('webpack');
 
-module.exports = ( env => {
-    console.log(`mode is: ${mode}`);
+module.exports = env => {
+    console.log(`mode is: ${env.mode}`);
     console.log(`mode env is: ${env.NODE_ENV}`)
     console.log(`api_url env is: ${env.API_HOST}`)
+    
+    const mode = env.mode !== undefined ? env.mode : 'production'
 
     return {
             mode,
