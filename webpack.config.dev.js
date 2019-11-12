@@ -3,8 +3,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 var webpack = require('webpack');
 
 module.exports = env => {
-    const mode = env.NODE_ENV !== undefined ? env.NODE_ENV : 'development'
-    
+    const mode = process.env.NODE_ENV !== undefined ? process.env.NODE_ENV : 'development'
+
     return {
             mode,
             entry: "./src/index.js",
