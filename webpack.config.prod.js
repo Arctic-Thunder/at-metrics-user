@@ -3,11 +3,10 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 var webpack = require('webpack');
 
 module.exports = env => {
-    console.log(`mode is: ${env.mode}`);
     console.log(`mode env is: ${env.NODE_ENV}`)
     console.log(`api_url env is: ${env.API_HOST}`)
     
-    const mode = env.mode !== undefined ? env.mode : 'production'
+    const mode = env.NODE_ENV !== undefined ? env.NODE_ENV : 'production'
 
     return {
             mode,
