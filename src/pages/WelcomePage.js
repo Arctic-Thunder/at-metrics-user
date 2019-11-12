@@ -61,6 +61,7 @@ export function WelcomePage (props) {
             </Typography>
             <Typography variant="body2" color="textSecondary">
               With this application, you will be able to:
+            </Typography>
               <div className={classes.demo}>
                 <List>
                   <ListItem>
@@ -89,7 +90,6 @@ export function WelcomePage (props) {
                   </ListItem>
                 </List>
               </div>
-            </Typography>
           </CardContent>
         </Card>
       </Grid>
