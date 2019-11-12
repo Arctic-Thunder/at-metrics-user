@@ -36,7 +36,7 @@
   "scripts": {
     "dev": "webpack-dev-server --env.API_HOST=https://at-metrics-stage.herokuapp.com/api --development --config webpack.config.dev.js",
     "start": "serve -s build",
-    "build": "webpack --config webpack.config.js --mode production",
+    "build": "webpack --config webpack.config.prod.js --mode production",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "heroku-postbuild": "npm run build"
