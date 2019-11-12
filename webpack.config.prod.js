@@ -33,7 +33,7 @@ module.exports = env => {
                 }),
                 new webpack.DefinePlugin({ 
                     'process.env': {
-                        'NODE_ENV': JSON.stringify('production'),
+                        'NODE_ENV': JSON.stringify(mode),
                         'API_HOST': JSON.stringify(env.API_HOST)
                     }
                 }),
