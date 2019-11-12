@@ -32,6 +32,9 @@ const useStyles = makeStyles (theme => ({
   title: {
     margin: theme.spacing (4, 0, 2),
   },
+  icon: {
+    
+  }
 }));
 
 export function WelcomePage (props) {
@@ -64,25 +67,25 @@ export function WelcomePage (props) {
                 <List>
                   <ListItem>
                     <ListItemIcon>
-                      <CheckCircleOutline />
+                      <CheckCircleOutline color="primary"/>
                     </ListItemIcon>
                     <ListItemText primary="Add, edit, and delete the projects you want metrics for." />
                   </ListItem>
                   <ListItem>
                     <ListItemIcon>
-                      <CheckCircleOutline />
+                      <CheckCircleOutline color="primary"/>
                     </ListItemIcon>
                     <ListItemText primary="Edit and delete your metrics." />
                   </ListItem>
                   <ListItem>
                     <ListItemIcon>
-                      <CheckCircleOutline />
+                      <CheckCircleOutline color="primary"/>
                     </ListItemIcon>
                     <ListItemText primary="View your metrics based upon the projects you have." />
                   </ListItem>
                   <ListItem>
                     <ListItemIcon>
-                      <CheckCircleOutline />
+                      <CheckCircleOutline color="primary"/>
                     </ListItemIcon>
                     <ListItemText primary="View the sample API." />
                   </ListItem>
