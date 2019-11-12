@@ -137,8 +137,8 @@ export const ProjectDetailPage = props => {
           alignItems="center"
         >
           <Grid item>
-            <Typography variant="h4">{name}</Typography>
-            <Typography variant="body1">
+            <Typography variant="h4" align="left">{name}</Typography>
+            <Typography variant="body1" align="left">
               {description}
             </Typography>
           </Grid>
