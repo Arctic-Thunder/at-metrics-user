@@ -52,6 +52,7 @@
       "last 1 safari version"
     ]
   },
+  "proxy": "https://at-metrics-stage.herokuapp.com/api",
   "devDependencies": {
     "eslint-plugin-react-hooks": "^2.2.0"
   }
