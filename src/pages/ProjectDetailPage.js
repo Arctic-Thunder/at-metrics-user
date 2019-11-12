@@ -1,5 +1,14 @@
 import React, {forwardRef, useEffect, useState} from 'react';
-import {Typography, Divider, Grid, Fab, Grow, Tooltip, TextField} from '@material-ui/core';
+import {
+  Typography,
+  Divider,
+  Grid,
+  Fab,
+  Grow,
+  Tooltip,
+  TextField,
+  Paper,
+} from '@material-ui/core';
 
 import {
   AddBox,
@@ -29,7 +38,7 @@ import {red, green} from '@material-ui/core/colors';
 import {connect} from 'react-redux';
 import {getProject as getProjectAction} from '../actions/projectActions';
 
-import ConfirmDeleteDialog from '../components/ConfirmDeleteDialog'
+import ConfirmDeleteDialog from '../components/ConfirmDeleteDialog';
 
 const tableIcons = {
   Add: forwardRef ((props, ref) => <AddBox {...props} ref={ref} />),
@@ -65,6 +74,12 @@ const useStyles = makeStyles (theme => ({
   fab: {
     margin: theme.spacing (1),
   },
+  codeBlock: {
+    textTransform: 'none',
+    fontFamily: [
+      "Courier"
+    ]
+  },
 }));
 
 export const ProjectDetailPage = props => {
@@ -85,12 +100,12 @@ export const ProjectDetailPage = props => {
     ? project
     : {name: '', description: ''};
 
-  const [newName, setNewName] = useState( name )
-  const [newDesc, setNewDesc] = useState( description )
+  const [newName, setNewName] = useState (name);
+  const [newDesc, setNewDesc] = useState (description);
   const [editOpen, setEditOpen] = useState (false);
   const [saveNeeded, setSaveNeeded] = useState (false);
-  const [wantsDelete, setWantsDelete] = useState(false)
-  const [confirmDelete, setConfirmDelete] = useState(false)
+  const [wantsDelete, setWantsDelete] = useState (false);
+  const [confirmDelete, setConfirmDelete] = useState (false);
 
   const transitionDuration = {
     enter: theme.transitions.duration.enteringScreen,
@@ -103,26 +118,46 @@ export const ProjectDetailPage = props => {
 
   const handleSavePress = () => {
     setSaveNeeded (false);
-    setEditOpen(false)
+    setEditOpen (false);
   };
 
   const handleDeletePress = () => {
-    setWantsDelete(true)
-  }
+    setWantsDelete (true);
+  };
 
   const handleChange = event => {
-    event.target.id === 'name' ? setNewName(event.target.value) : setNewDesc(event.target.description)
-    setSaveNeeded(newName !== name || newDesc !== description)
-  }
+    event.target.id === 'name'
+      ? setNewName (event.target.value)
+      : setNewDesc (event.target.description);
+    setSaveNeeded (newName !== name || newDesc !== description);
+  };
 
   const handleClose = () => {
-    setWantsDelete(!wantsDelete)
-  }
+    setWantsDelete (!wantsDelete);
+  };
 
   const handleContinue = () => {
-    setWantsDelete(!wantsDelete)
-    setConfirmDelete(true)
-  }
+    setWantsDelete (!wantsDelete);
+    setConfirmDelete (true);
+  };
+
+  const renderDataRow = (data, level=0) => {
+    var tabs = []
+    for (var i = 0; i < level; i++) {
+      tabs.push('----- ')
+    }
+
+    return Object.keys (data).map (
+      (key, index) => {
+        return (
+          <div>
+            <Typography className={classes.codeBlock} key={level+index}>{tabs}{key}: {typeof data[key] !== 'object' ? data[key] : ''}</Typography>
+            {typeof data[key] === 'object' ? renderDataRow (data[key], level + 1) : ''}
+          </div> 
+        )
+      }
+    );
+  };
 
   const fabs = {
     editBar: [
@@ -133,7 +168,7 @@ export const ProjectDetailPage = props => {
         label: 'Delete',
         size: 'small',
         initial: false,
-        onClick: handleDeletePress
+        onClick: handleDeletePress,
       },
       {
         className: classes.fab,
@@ -158,7 +193,7 @@ export const ProjectDetailPage = props => {
 
   const renderEditableText = () => {
     if (editOpen) {
-      console.log("Can Edit")
+      console.log ('Can Edit');
       return (
         <div>
           <TextField
@@ -176,17 +211,17 @@ export const ProjectDetailPage = props => {
             onChange={handleChange}
           />
         </div>
-      )
+      );
     } else {
-      console.log("Can't Edit")
+      console.log ("Can't Edit");
       return (
         <div>
-          <Typography variant='h4'>{name}</Typography>
-          <Typography variant='body1'>{description}</Typography>
+          <Typography variant="h4">{name}</Typography>
+          <Typography variant="body1">{description}</Typography>
         </div>
-      )
+      );
     }
-  }
+  };
 
   return (
     <section className="project-detail">
@@ -199,7 +234,7 @@ export const ProjectDetailPage = props => {
           alignItems="center"
         >
           <Grid item>
-            {renderEditableText()}
+            {renderEditableText ()}
           </Grid>
           <Grid item>
             {fabs.editBar.map ((fab, index) => (
@@ -209,9 +244,7 @@ export const ProjectDetailPage = props => {
                 timeout={transitionDuration}
                 unmountOnExit
               >
-                <Tooltip
-                  title={fab.label}
-                >
+                <Tooltip title={fab.label}>
                   <Fab
                     aria-label={fab.label}
                     id={fab.label.toLowerCase ()}
@@ -227,7 +260,13 @@ export const ProjectDetailPage = props => {
                 </Tooltip>
               </Grow>
             ))}
-            <ConfirmDeleteDialog title="Delete Project" description="Are you sure you want to delete this project? This operation cannot be undone" open={wantsDelete} onClose={handleClose} onContinue={handleContinue} />
+            <ConfirmDeleteDialog
+              title="Delete Project"
+              description="Are you sure you want to delete this project? This operation cannot be undone"
+              open={wantsDelete}
+              onClose={handleClose}
+              onContinue={handleContinue}
+            />
           </Grid>
         </Grid>
         <Grid item>
@@ -248,22 +287,102 @@ export const ProjectDetailPage = props => {
                 desc: 'description',
                 data: {name: 'example', type: 'whatever'},
               },
-              {time: Date (), name: 'test2', desc: 'description'},
-              {time: Date (), name: 'test3', desc: 'description'},
-              {time: Date (), name: 'test4', desc: 'description'},
-              {time: Date (), name: 'test5', desc: 'description'},
-              {time: Date (), name: 'test6', desc: 'description'},
-              {time: Date (), name: 'test7', desc: 'description'},
-              {time: Date (), name: 'test8', desc: 'description'},
-              {time: Date (), name: 'test9', desc: 'description'},
-              {time: Date (), name: 'test10', desc: 'description'},
-              {time: Date (), name: 'test11', desc: 'description'},
-              {time: Date (), name: 'test12', desc: 'description'},
-              {time: Date (), name: 'test13', desc: 'description'},
-              {time: Date (), name: 'test14', desc: 'description'},
-              {time: Date (), name: 'test15', desc: 'description'},
-              {time: Date (), name: 'test16', desc: 'description'},
-              {time: Date (), name: 'test17', desc: 'description'},
+              {
+                time: Date (),
+                name: 'test2',
+                desc: 'description',
+                data: {type: 'metric', nest: {one: 'one', two: 'two'}, sup: "bro"},
+              },
+              {
+                time: Date (),
+                name: 'test3',
+                desc: 'description',
+                data: {type: 'metric'},
+              },
+              {
+                time: Date (),
+                name: 'test4',
+                desc: 'description',
+                data: {type: 'metric'},
+              },
+              {
+                time: Date (),
+                name: 'test5',
+                desc: 'description',
+                data: {type: 'metric'},
+              },
+              {
+                time: Date (),
+                name: 'test6',
+                desc: 'description',
+                data: {type: 'metric'},
+              },
+              {
+                time: Date (),
+                name: 'test7',
+                desc: 'description',
+                data: {type: 'metric'},
+              },
+              {
+                time: Date (),
+                name: 'test8',
+                desc: 'description',
+                data: {type: 'metric'},
+              },
+              {
+                time: Date (),
+                name: 'test9',
+                desc: 'description',
+                data: {type: 'metric'},
+              },
+              {
+                time: Date (),
+                name: 'test10',
+                desc: 'description',
+                data: {type: 'metric'},
+              },
+              {
+                time: Date (),
+                name: 'test11',
+                desc: 'description',
+                data: {type: 'metric'},
+              },
+              {
+                time: Date (),
+                name: 'test12',
+                desc: 'description',
+                data: {type: 'metric'},
+              },
+              {
+                time: Date (),
+                name: 'test13',
+                desc: 'description',
+                data: {type: 'metric'},
+              },
+              {
+                time: Date (),
+                name: 'test14',
+                desc: 'description',
+                data: {type: 'metric'},
+              },
+              {
+                time: Date (),
+                name: 'test15',
+                desc: 'description',
+                data: {type: 'metric'},
+              },
+              {
+                time: Date (),
+                name: 'test16',
+                desc: 'description',
+                data: {type: 'metric'},
+              },
+              {
+                time: Date (),
+                name: 'test17',
+                desc: 'description',
+                data: {type: 'metric'},
+              },
             ]}
             options={{search: false}}
             detailPanel={[
@@ -272,7 +391,9 @@ export const ProjectDetailPage = props => {
                 render: rowData => {
                   return (
                     <div>
-                      <Typography>Detail View</Typography>
+                      <Paper>
+                        {renderDataRow (rowData.data)}
+                      </Paper>
                     </div>
                   );
                 },
@@ -301,7 +422,6 @@ const mapDispatchToProps = dispatch => {
   return {
     getProject: id => dispatch (getProjectAction (id)),
   };
-
 };
 
 export default connect (mapStateToProps, mapDispatchToProps) (
