@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {Provider} from 'react-redux';
@@ -8,7 +7,8 @@ import configureStore from './store/configureStore';
 
 const store = configureStore ();
 const unsubscribe = store.subscribe (() => console.log (store.getState ()));
-
+console.log(`MODE: ${process.env.NODE_ENV}`)
+console.log(`URL: ${process.env.API_HOST}`)
 ReactDOM.render (
   <Provider store={store}>
     <App />

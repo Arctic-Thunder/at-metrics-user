@@ -32,7 +32,6 @@ export const DashboardPage = props => {
   };
 
   props.changePage (0);
-
   return (
     <section className="dashboard">
       {renderRedirect ()}
