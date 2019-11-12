@@ -23,6 +23,9 @@ const useStyles = makeStyles (theme => ({
   menuButton: {
     marginRight: theme.spacing (2),
   },
+  login: {
+    textTransform: "none",
+  },
   title: {
     flexGrow: 1,
   },
@@ -57,8 +60,8 @@ export const MenuBar = props => {
           to={`/login`}
           component={RouterLink}
         >
-          <Button variant="outlined" color="inherit" onClick={handleLogout}>
-            {' '}{props.isAuthenticated ? 'Logout' : 'Login'}{' '}
+          <Button variant="outlined" color="inherit" onClick={handleLogout} className={classes.login}>
+            {' '}{props.isAuthenticated ? 'Logout' : 'Login or Register'}{' '}
           </Button>
         </Link>
       </Toolbar>
