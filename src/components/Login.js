@@ -95,7 +95,7 @@ const Login = props => {
         value={password}
         onChange={handleChange}
       />
-      <Button variant="contained" color="primary" onClick={handleSubmit}>
+      <Button variant="contained" color="primary" onClick={handleSubmit} disabled={username === '' || password === ''}>
         Login
       </Button>
       <Fade

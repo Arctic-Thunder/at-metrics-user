@@ -44,7 +44,8 @@ class Register extends React.Component {
       email: '',
       username: '',
       password: '',
-      verifyPassword: false,
+      verifyPassword: '',
+      canlogin: false,
     };
 
     this.handleChange = this.handleChange.bind (this);
@@ -53,21 +54,19 @@ class Register extends React.Component {
   handleChange (event) {
     switch (event.target.name) {
       case 'usrName':
-        this.setState ({username: event.target.value});
+        this.setState ({username: event.target.value, canlogin: event.target.value !== '' && this.state.email !== '' && this.state.password !== '' && this.state.verifyPassword !== '' && this.state.password === this.state.verifyPassword});
         break;
 
       case 'email':
-        this.setState ({email: event.target.value});
+        this.setState ({email: event.target.value, canlogin: this.state.username !== '' && event.target.value !== '' && this.state.password !== '' && this.state.verifyPassword !== '' && this.state.password === this.state.verifyPassword});
         break;
 
       case 'password':
-        this.setState ({password: event.target.value});
+        this.setState ({password: event.target.value, canlogin: this.state.username !== '' && this.state.email !== '' && event.target.value !== '' && this.state.verifyPassword !== '' && event.target.value === this.state.verifyPassword});
         break;
 
       case 'verifyPassword':
-        this.setState ({
-          verifyPassword: event.target.value === this.state.password,
-        });
+        this.setState ({verifyPassword: event.target.value, canlogin: this.state.username !== '' && this.state.email !== '' && this.state.password !== '' && event.target.value !== '' && this.state.password === event.target.value});
         break;
 
       default:
@@ -110,7 +109,7 @@ class Register extends React.Component {
         <Button
           color="primary"
           variant="contained"
-          disabled={!this.state.verifyPassword}
+          disabled={!this.state.canlogin}
         >
           Register
         </Button>
