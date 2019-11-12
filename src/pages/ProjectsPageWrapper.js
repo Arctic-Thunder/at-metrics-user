@@ -22,30 +22,33 @@ export const ProjectsPageWrapper = props => {
   const {isAuthenticated} = props;
   const classes = useStyles ();
 
-  const renderRedirect = () => {
-    if (!isAuthenticated) {
-      return <Redirect to="/login" />;
-    }
-  };
+  // const renderRedirect = () => {
+  //   if (!isAuthenticated) {
+  //     return <Redirect to="/login" />;
+  //   }
+  // };
 
   props.changePage (1);
 
-  return (
-    <section className={classes.root}>
-      {renderRedirect ()}
-      <Switch>
-        <Route exact path="/projects">
-          <AllProjectsPage />
-        </Route>
-        <Route
-          path="/projects/:project_id"
-          children={({match}) => (
-            <ProjectDetailPage project_id={match.params.project_id} />
-          )}
-        />
-      </Switch>
-    </section>
-  );
+  if (!isAuthenticated) {
+    return <Redirect to="/login" />;
+  } else {
+    return (
+      <section className={classes.root}>
+        <Switch>
+          <Route exact path="/projects">
+            <AllProjectsPage />
+          </Route>
+          <Route
+            path="/projects/:project_id"
+            children={({match}) => (
+              <ProjectDetailPage project_id={match.params.project_id} />
+            )}
+          />
+        </Switch>
+      </section>
+    );
+  }
 };
 
 const mapStateToProps = state => {

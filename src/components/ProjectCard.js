@@ -15,7 +15,7 @@ import {grey} from '@material-ui/core/colors';
 
 const useStyles = makeStyles ({
   card: {
-    minWidth: 200,
+    width: 250,
     minHeight: 1.1 * 275,
     backgroundColor: grey[200],
   },

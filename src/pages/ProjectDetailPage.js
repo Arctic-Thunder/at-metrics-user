@@ -1,9 +1,10 @@
 import React, {forwardRef, useEffect, useState} from 'react';
-import {Typography, Divider, Grid, Fab, Grow} from '@material-ui/core';
+import {Typography, Divider, Grid, Fab, Grow, Tooltip, TextField} from '@material-ui/core';
 
 import {
   AddBox,
   ArrowUpward,
+  Cancel,
   Check,
   ChevronLeft,
   ChevronRight,
@@ -23,10 +24,13 @@ import {
 
 import MaterialTable from 'material-table';
 import {makeStyles, useTheme} from '@material-ui/core/styles';
-import { red, green } from '@material-ui/core/colors'
+import {red, green} from '@material-ui/core/colors';
 
 import {connect} from 'react-redux';
 import {getProject as getProjectAction} from '../actions/projectActions';
+
+import ConfirmDeleteDialog from '../components/ConfirmDeleteDialog'
+import { set } from 'date-fns';
 
 const tableIcons = {
   Add: forwardRef ((props, ref) => <AddBox {...props} ref={ref} />),
@@ -82,8 +86,12 @@ export const ProjectDetailPage = props => {
     ? project
     : {name: '', description: ''};
 
+  const [newName, setNewName] = useState( name )
+  const [newDesc, setNewDesc] = useState( description )
   const [editOpen, setEditOpen] = useState (false);
   const [saveNeeded, setSaveNeeded] = useState (false);
+  const [wantsDelete, setWantsDelete] = useState(false)
+  const [confirmDelete, setConfirmDelete] = useState(false)
 
   const transitionDuration = {
     enter: theme.transitions.duration.enteringScreen,
@@ -91,40 +99,95 @@ export const ProjectDetailPage = props => {
   };
 
   const handleEditPress = () => {
-    setEditOpen(!editOpen)
-  }
+    setEditOpen (!editOpen);
+  };
 
   const handleSavePress = () => {
-    setSaveNeeded(!saveNeeded)
+    setSaveNeeded (false);
+    setEditOpen(false)
+  };
+
+  const handleDeletePress = () => {
+    setWantsDelete(true)
+  }
+
+  const handleChange = event => {
+    event.target.id === 'name' ? setNewName(event.target.value) : setNewDesc(event.target.description)
+    setSaveNeeded(newName !== name || newDesc !== description)
+  }
+
+  const handleClose = () => {
+    setWantsDelete(!wantsDelete)
+  }
+
+  const handleContinue = () => {
+    setWantsDelete(!wantsDelete)
+    setConfirmDelete(true)
   }
 
   const fabs = {
     editBar: [
       {
+        color: red[500],
+        className: classes.fab,
+        icon: <Delete />,
+        label: 'Delete',
+        size: 'small',
+        initial: false,
+        onClick: handleDeletePress
+      },
+      {
         className: classes.fab,
         icon: <Save />,
         label: 'Save',
+        size: 'small',
         initial: false,
         color: saveNeeded ? green[500] : null,
         onClick: handleSavePress,
       },
       {
-        color: red[500],
-        className: classes.fab,
-        icon: <Delete />,
-        label: 'Delete',
-        initial: false,
-      },
-      {
         color: 'primary',
         className: classes.fab,
-        icon: <Edit />,
-        label: "Edit",
+        icon: editOpen ? <Cancel /> : <Edit />,
+        label: editOpen ? 'Cancel' : 'Edit',
+        size: 'medium',
         initial: true,
-        onClick: handleEditPress
+        onClick: handleEditPress,
       },
     ],
   };
+
+  const renderEditableText = () => {
+    if (editOpen) {
+      console.log("Can Edit")
+      return (
+        <div>
+          <TextField
+            margin="dense"
+            id="name"
+            label="Project Name"
+            fullWidth
+            onChange={handleChange}
+          />
+          <TextField
+            margin="dense"
+            id="description"
+            label="Project Description"
+            fullWidth
+            onChange={handleChange}
+          />
+        </div>
+      )
+    } else {
+      console.log("Can't Edit")
+      return (
+        <div>
+          <Typography variant='h4'>{name}</Typography>
+          <Typography variant='body1'>{description}</Typography>
+        </div>
+      )
+    }
+  }
 
   return (
     <section className="project-detail">
@@ -137,10 +200,7 @@ export const ProjectDetailPage = props => {
           alignItems="center"
         >
           <Grid item>
-            <Typography variant="h4">{name}</Typography>
-            <Typography variant="body1">
-              {description}
-            </Typography>
+            {renderEditableText}
           </Grid>
           <Grid item>
             {fabs.editBar.map ((fab, index) => (
@@ -150,19 +210,25 @@ export const ProjectDetailPage = props => {
                 timeout={transitionDuration}
                 unmountOnExit
               >
-                <Fab
-                  aria-label={fab.label}
-                  id={fab.label.toLowerCase()}
-                  className={fab.className}
-                  style={{
-                    backgroundColor: fab.color
-                  }}
-                  onClick={fab.onClick}
+                <Tooltip
+                  title={fab.label}
                 >
-                  {fab.icon}
-                </Fab>
+                  <Fab
+                    aria-label={fab.label}
+                    id={fab.label.toLowerCase ()}
+                    className={fab.className}
+                    size={fab.size}
+                    style={{
+                      backgroundColor: fab.color,
+                    }}
+                    onClick={fab.onClick}
+                  >
+                    {fab.icon}
+                  </Fab>
+                </Tooltip>
               </Grow>
             ))}
+            <ConfirmDeleteDialog title="Delete Project" description="Are you sure you want to delete this project? This operation cannot be undone" open={wantsDelete} onClose={handleClose} onContinue={handleContinue} />
           </Grid>
         </Grid>
         <Grid item>
@@ -236,6 +302,7 @@ const mapDispatchToProps = dispatch => {
   return {
     getProject: id => dispatch (getProjectAction (id)),
   };
+
 };
 
 export default connect (mapStateToProps, mapDispatchToProps) (

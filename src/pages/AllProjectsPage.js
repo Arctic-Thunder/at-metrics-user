@@ -153,7 +153,8 @@ export const AllProjectsPage = props => {
           item
           direction="row"
           spacing={3}
-          justify="space-between"
+          justify="space-evenly"
+          alignItems='center'
         >
           {projects.map ((project, index) => (
             <Grid item key={index}>

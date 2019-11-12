@@ -57,7 +57,7 @@ export default function LoginPage () {
             </Grid>
 
             <Grid item>
-              <Typography>Don't have an accout?</Typography>
+              <Typography>Don't have an account?</Typography>
               <Link underline="none" to={`/register`} component={RouterLink}>
                 <Button variant="outlined">Sign Up</Button>
               </Link>
