@@ -2,8 +2,10 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 var webpack = require('webpack');
 
-module.exports = ({ mode } = { mode: "production" }) => {
-    console.log(`mode is: ${mode}`);
+module.exports = env => {
+    console.log(`api_url env is: ${env.API_HOST}`)
+
+    const mode = env.mode
     return {
             mode,
             entry: "./src/index.js",
@@ -31,10 +33,8 @@ module.exports = ({ mode } = { mode: "production" }) => {
                     template: "./public/index.html"
                 }),
                 new webpack.DefinePlugin({ 
-                    'process.env': {
-                        NODE_ENV: JSON.stringify('development'),
-                        API_URL: JSON.stringify('https://at-metrics-api.herokuapp.com/api' )
-                    }
+                    'process.env.NODE_ENV': JSON.stringify(mode),
+                    'process.env.API_HOST': JSON.stringify(env.API_HOST)
                 }),
             ]
         }
