@@ -1,7 +1,7 @@
 class ProjectApi {
   // Gets all projects
   static getAllProjects (token) {
-    return fetch (`${process.env.API_URL}/projects/`, {
+    return fetch (`${process.env.API_HOST}/projects/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -19,7 +19,7 @@ class ProjectApi {
 
   // Gets a specific project
   static getProject (token, id) {
-    return fetch (`${process.env.API_URL}/projects/${id}/`, {
+    return fetch (`${process.env.API_HOST}/projects/${id}/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ class ProjectApi {
 
   // Creates a new project
   static createProject (token, name, description) {
-    return fetch (`${process.env.API_URL}/projects/`, {
+    return fetch (`${process.env.API_HOST}/projects/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ class ProjectApi {
 
   // Delete a project
   static deleteProject (token, id) {
-    return fetch (`${process.env.API_URL}/projects/${id}/`, {
+    return fetch (`${process.env.API_HOST}/projects/${id}/`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
